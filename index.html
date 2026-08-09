@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>COS 102 — Revision Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sage:#3ecf8e; --sage-dark:#2fb37b; --sage-soft:rgba(62,207,142,0.14);
+  --gold:#e0b955; --ink:#f2f3f4; --grey:#9aa0a6; --line:#26292d; --cream:#0b0d0e;
+  --green:#3ecf8e; --card:#16181b; --card-alt:#1a1d21; --danger:#f87171;
+  --header-bg:rgba(11,13,14,0.92); --shadow:rgba(0,0,0,0.25); --shadow-strong:rgba(0,0,0,0.4);
+  --cm-panel:#0d0f11; --cm-head:#121417; --cm-line:#2a2d31; --cm-text:#f5f5f5; --cm-sub:#9aa0a6;
+  --cm-faint:#7a8085; --cm-item:#16181b; --cm-item-line:#24272b; --cm-reply:#1a1d21; --cm-msg:#d4d6d8;
+}
+:root[data-theme="light"]{
+  --sage:#1f9d68; --sage-dark:#18804f; --sage-soft:rgba(31,157,104,0.12);
+  --gold:#a97a1f; --ink:#1c1e21; --grey:#5c6167; --line:#e2e4e7; --cream:#f7f7f5;
+  --green:#1f9d68; --card:#ffffff; --card-alt:#f1f2f0; --danger:#d1453d;
+  --header-bg:rgba(247,247,245,0.92); --shadow:rgba(20,20,20,0.06); --shadow-strong:rgba(20,20,20,0.12);
+  --cm-panel:#ffffff; --cm-head:#f7f7f5; --cm-line:#e2e4e7; --cm-text:#1c1e21; --cm-sub:#5c6167;
+  --cm-faint:#84898f; --cm-item:#f7f7f5; --cm-item-line:#e2e4e7; --cm-reply:#eef0ee; --cm-msg:#33363a;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background-color:var(--cream);
+  color:var(--ink); line-height:1.6; -webkit-tap-highlight-color:transparent;
+  transition:background-color .2s ease, color .2s ease;
+}
+header{
+  background:var(--header-bg); border-bottom:1px solid var(--line); padding:28px 20px 22px 62px;
+  position:sticky; top:0; z-index:10; backdrop-filter:blur(6px);
+}
+.theme-toggle{
+  position:fixed; top:14px; left:14px; z-index:1100;
+  width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+  background:var(--card); color:var(--ink); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 2px 8px var(--shadow); transition:background .15s ease, border-color .15s ease, transform .1s ease;
+}
+.theme-toggle:active{ transform:scale(0.92); }
+.theme-toggle svg{ width:18px; height:18px; }
+.theme-toggle .icon-moon{ display:none; }
+:root[data-theme="light"] .theme-toggle .icon-sun{ display:none; }
+:root[data-theme="light"] .theme-toggle .icon-moon{ display:block; }
+.theme-toggle.pulse::after{
+  content:""; position:absolute; inset:0; border-radius:50%; background:var(--sage);
+  animation:theme-toggle-pulse 2s ease-out infinite;
+}
+@keyframes theme-toggle-pulse{
+  0%{ transform:scale(1); opacity:0.55; }
+  100%{ transform:scale(1.9); opacity:0; }
+}
+.dept{ font-size:12.5px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); font-weight:600; }
+h1{
+  font-family:inherit;
+  font-weight:700; font-size:26px; margin:8px 0 4px; color:var(--ink); letter-spacing:0.1px;
+}
+.sub{
+  font-family:'Caveat', cursive; font-weight:600; font-style:normal; font-size:23px;
+  color:var(--sage); margin-bottom:16px; line-height:1.4;
+}
+.ecg-wrap{
+  width:100%; height:56px; overflow:hidden; margin-bottom:16px; border-radius:8px;
+  background-color:#03110a;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,255,102,0.14) 0px, rgba(0,255,102,0.14) 1px, transparent 1px, transparent 8px),
+    repeating-linear-gradient(90deg, rgba(0,255,102,0.14) 0px, rgba(0,255,102,0.14) 1px, transparent 1px, transparent 8px);
+}
+.ecg-svg{
+  display:block; height:56px; width:200%; animation:ecg-scroll 9s linear infinite;
+  filter:drop-shadow(0 0 3px rgba(60,255,140,0.95)) drop-shadow(0 0 8px rgba(60,255,140,0.55));
+}
+.ecg-line{ fill:none; stroke:#3cff8c; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+@keyframes ecg-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.meta{ font-size:12px; color:var(--grey); margin-bottom:14px; letter-spacing:0.2px; }
+.search-wrap{ position:relative; margin-bottom:20px; }
+#search{
+  width:100%; padding:12px 14px 12px 38px; border-radius:10px; border:1px solid var(--line);
+  font-size:15px; background:var(--card); color:var(--ink); outline:none;
+}
+#search::placeholder{ color:var(--grey); }
+#search:focus{ border-color:var(--sage); box-shadow:0 0 0 3px var(--sage-soft); }
+.search-icon{ position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--grey); font-size:15px; }
+
+main{ max-width:720px; margin:0 auto; padding:20px 16px 60px; }
+
+/* --- Table of contents (topic list) --- */
+.toc-list{ display:flex; flex-direction:column; gap:12px; }
+.toc-card{
+  display:flex; align-items:center; gap:14px; text-align:left; width:100%;
+  background:var(--card); border:1px solid var(--line); border-left:3px solid var(--sage);
+  border-radius:14px; padding:16px 16px 16px 14px; cursor:pointer; font:inherit; color:inherit;
+  box-shadow:0 2px 10px rgba(0,0,0,0.25); transition:box-shadow .15s ease, transform .1s ease, border-color .15s ease;
+}
+.toc-card:active{ transform:scale(0.99); }
+.toc-card.done{ border-left-color:var(--green); }
+.toc-num{
+  flex-shrink:0; width:34px; height:34px; border-radius:50%; background:var(--sage); color:#0a0a0a;
+  font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+.toc-card.done .toc-num{ background:var(--green); }
+.toc-body{ flex:1 1 auto; min-width:0; }
+.toc-title{ font-size:15.5px; font-weight:700; color:var(--ink); }
+.toc-subtitle{ font-size:12.5px; color:var(--grey); margin-top:1px; }
+.toc-progress-row{ display:flex; align-items:center; gap:8px; margin-top:8px; }
+.toc-bar{ flex:1 1 auto; height:6px; border-radius:4px; background:var(--line); overflow:hidden; }
+.toc-bar-fill{ height:100%; background:var(--sage); border-radius:4px; transition:width .25s ease; }
+.toc-card.done .toc-bar-fill{ background:var(--green); }
+.toc-count{ flex-shrink:0; font-size:11.5px; color:var(--grey); white-space:nowrap; }
+.toc-chevron{ flex-shrink:0; color:var(--gold); font-size:18px; }
+
+/* --- Topic (single-topic quiz) view --- */
+#topic-view.hidden, #toc-view.hidden{ display:none; }
+.back-row{ margin-bottom:14px; }
+.back-btn{
+  display:inline-flex; align-items:center; gap:6px; background:none; border:none; cursor:pointer;
+  font:inherit; font-size:14px; font-weight:600; color:var(--sage); padding:6px 2px;
+}
+.back-btn:active{ opacity:0.7; }
+.topic-header{ margin-bottom:6px; }
+.topic-title{
+  font-family:inherit; font-weight:700; font-size:21px;
+  color:var(--ink);
+}
+.topic-subtitle{ font-size:13px; font-style:normal; color:var(--grey); margin-top:2px; }
+.topic-meta{ font-size:12px; color:var(--grey); margin:6px 0 14px; }
+
+.part-label{
+  font-family:inherit; font-style:normal; text-transform:uppercase; letter-spacing:1.2px;
+  font-size:12.5px; color:var(--sage); font-weight:700; margin:28px 4px 10px; opacity:0.95;
+}
+.part-label:first-child{ margin-top:6px; }
+.subsection-title{
+  font-family:inherit; font-style:normal; text-transform:uppercase; letter-spacing:1px;
+  font-size:12px; color:var(--sage); font-weight:700; margin:22px 4px 8px; opacity:0.9;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line); border-left:3px solid var(--sage);
+  border-radius:14px; padding:18px 18px 16px; margin-bottom:16px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.25);
+  transition:box-shadow .2s ease, border-color .2s ease;
+}
+.card.hidden{ display:none; }
+.q-row{ display:flex; gap:11px; align-items:flex-start; }
+.q-num{
+  flex-shrink:0; width:27px; height:27px; border-radius:50%; background:var(--sage); color:#0a0a0a;
+  font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:1px;
+}
+.q-text{ font-size:15.5px; font-weight:600; color:var(--ink); }
+
+.options{ margin:14px 0 4px 38px; }
+.opt{
+  display:flex; gap:8px; align-items:baseline; font-size:14.5px; color:var(--ink); padding:10px 12px;
+  border-radius:10px; border:1px solid var(--line); margin-bottom:7px; cursor:pointer;
+  background:var(--card-alt);
+  transition:background .15s ease, border-color .15s ease, transform .1s ease;
+}
+.opt:active{ transform:scale(0.98); }
+.opt .letter{ font-weight:700; color:var(--gold); width:18px; flex-shrink:0; }
+.card.answered .opt{ cursor:default; }
+.card.answered .opt:active{ transform:none; }
+.opt.pick-correct{ background:rgba(62,207,142,0.14); border-color:var(--green); }
+.opt.pick-correct .letter{ color:var(--green); }
+.opt.pick-wrong{ background:rgba(248,113,113,0.12); border-color:var(--danger); }
+.opt.pick-wrong .letter{ color:var(--danger); }
+.opt.reveal-correct{ background:rgba(62,207,142,0.14); border-color:var(--green); }
+
+.feedback{
+  margin:10px 0 0 38px; font-size:13.5px; font-weight:600; min-height:18px;
+  max-height:0; overflow:hidden; opacity:0; transition:max-height .3s ease, opacity .3s ease, margin-top .3s ease;
+}
+.feedback.show{ max-height:40px; opacity:1; }
+.feedback.correct{ color:var(--green); }
+.feedback.wrong{ color:var(--danger); }
+
+.explain{
+  margin:6px 0 0 38px; font-size:13px; color:var(--grey); font-style:normal; line-height:1.5;
+  max-height:0; overflow:hidden; opacity:0; transition:max-height .3s ease, opacity .3s ease, margin-top .3s ease;
+}
+.explain.show{ max-height:200px; opacity:1; }
+
+.no-results{ text-align:center; color:var(--grey); font-size:14px; padding:40px 10px; display:none; }
+
+footer{
+  text-align:center; font-size:11px; letter-spacing:1.5px; color:var(--grey); padding:24px 10px 34px;
+  font-family:inherit; font-style:normal; letter-spacing:0.3px;
+}
+
+/* --- Lock screen --- */
+#lock-overlay{
+  position:fixed; inset:0; z-index:1000; background:var(--cream);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+#lock-overlay.unlocked{ display:none; }
+.lock-card{
+  background:var(--card); border:1px solid var(--line); border-top:3px solid var(--sage);
+  border-radius:16px; padding:34px 28px; max-width:360px; width:100%; text-align:center;
+  box-shadow:0 8px 28px rgba(0,0,0,0.4);
+}
+.lock-icon{ font-size:26px; margin-bottom:8px; }
+.lock-dept{ font-size:11.5px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); font-weight:600; }
+.lock-title{
+  font-family:inherit; font-weight:700; font-size:21px;
+  color:var(--ink); margin:6px 0 4px;
+}
+.lock-sub{ font-size:13px; color:var(--grey); margin-bottom:18px; }
+.lock-quote{
+  font-family:'Caveat', cursive; font-weight:600; font-size:23px;
+  color:var(--sage); margin:2px 0 18px; line-height:1.4;
+}
+#lock-password{
+  width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line);
+  font-size:15px; background:var(--card-alt); color:var(--ink); outline:none; text-align:center;
+  letter-spacing:1px;
+}
+#lock-password:focus{ border-color:var(--sage); box-shadow:0 0 0 3px var(--sage-soft); }
+#lock-submit{
+  width:100%; margin-top:12px; padding:12px 14px; border:none; border-radius:10px;
+  background:var(--sage); color:#0a0a0a; font-size:14.5px; font-weight:700; cursor:pointer;
+}
+#lock-submit:active{ background:var(--sage-dark); }
+.lock-error{
+  color:var(--danger); font-size:12.5px; font-weight:600; margin-top:10px; min-height:16px;
+  visibility:hidden;
+}
+.lock-error.show{ visibility:visible; }
+
+/* --- Floating comments widget (Supabase-inspired dark theme, full-screen) --- */
+#comment-fab{
+  position:fixed; right:18px; bottom:18px; z-index:900;
+  width:56px; height:56px; border-radius:50%; border:none; cursor:pointer;
+  background:#3ecf8e; color:#0a0a0a; font-size:24px; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 16px rgba(62,207,142,0.45);
+}
+#comment-fab:active{ background:#2fb37b; }
+#comment-fab.pulse::after{
+  content:""; position:absolute; inset:0; border-radius:50%; background:#3ecf8e;
+  animation:comment-pulse 2s ease-out infinite;
+}
+@keyframes comment-pulse{
+  0%{ transform:scale(1); opacity:0.55; }
+  100%{ transform:scale(1.9); opacity:0; }
+}
+#comment-badge{
+  position:absolute; top:-2px; right:-2px; background:#f87171; color:#0a0a0a; border-radius:50%;
+  min-width:19px; height:19px; font-size:10.5px; font-weight:700; display:none;
+  align-items:center; justify-content:center; padding:0 4px; box-shadow:0 0 0 2px var(--cm-panel);
+}
+#comment-badge.show{ display:flex; }
+
+#comment-panel{
+  position:fixed; inset:0; z-index:900; width:100%; max-width:100%;
+  height:100%; max-height:100%; background:var(--cm-panel); border:none; border-radius:0;
+  box-shadow:none; display:flex; flex-direction:column; overflow:hidden;
+  transform:translateY(100%); opacity:1; pointer-events:none; transition:transform .28s ease;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+#comment-panel.open{ transform:translateY(0); pointer-events:auto; }
+.comment-head{
+  padding:16px 18px; padding-top:calc(16px + env(safe-area-inset-top));
+  border-bottom:1px solid var(--cm-line); font-weight:700; font-size:16px; color:var(--cm-text);
+  display:flex; align-items:center; justify-content:space-between; gap:8px; flex-shrink:0;
+  background:var(--cm-head);
+}
+.comment-head-left{ display:flex; align-items:center; gap:10px; }
+.comment-admin-link{ background:none; border:1px solid var(--cm-line); border-radius:8px; font-size:11px; font-weight:600; color:var(--cm-sub); cursor:pointer; padding:5px 10px; }
+.comment-admin-link.on{ color:#3ecf8e; border-color:#3ecf8e; }
+.comment-close{ background:none; border:none; font-size:26px; color:var(--cm-sub); cursor:pointer; padding:2px 8px; line-height:1; }
+#comment-list{ flex:1 1 auto; overflow-y:auto; padding:14px 18px; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column; }
+.comment-item{
+  padding:14px; margin-bottom:10px; background:var(--cm-item); border:1px solid var(--cm-item-line); border-radius:12px;
+}
+.comment-item:last-child{ margin-bottom:0; }
+.comment-item.reply{ margin-left:20px; margin-top:8px; background:var(--cm-reply); border-color:var(--cm-line); }
+.comment-name{ font-size:13px; font-weight:700; color:var(--cm-text); }
+.comment-time{ font-size:11px; color:var(--cm-faint); margin-left:6px; font-weight:400; }
+.comment-msg{ font-size:14.5px; color:var(--cm-msg); margin-top:4px; line-height:1.5; word-wrap:break-word; }
+.comment-image{ margin-top:8px; }
+.comment-image img{
+  max-width:100%; max-height:260px; border-radius:10px; display:block; border:1px solid var(--cm-item-line);
+  cursor:zoom-in; object-fit:cover;
+}
+.comment-empty{ margin:auto; text-align:center; color:var(--cm-faint); font-size:13.5px; padding:20px 8px; }
+.comment-actions{ display:flex; align-items:center; gap:16px; margin-top:8px; }
+.comment-action{
+  background:none; border:none; cursor:pointer; font:inherit; font-size:12px; color:var(--cm-sub);
+  display:flex; align-items:center; gap:4px; padding:2px 0;
+}
+.comment-action.liked{ color:#f87171; font-weight:700; }
+.comment-action.reported{ color:#e0b955; font-weight:700; cursor:default; }
+.comment-action.delete{ color:#f87171; }
+.comment-report-flag{ font-size:10px; color:#f87171; font-weight:700; margin-left:6px; }
+.reply-form{ display:none; gap:6px; margin-top:10px; flex-direction:column; }
+.reply-form.open{ display:flex; }
+.reply-form textarea{
+  border:1px solid var(--cm-line); border-radius:8px; padding:8px 10px; font:inherit; font-size:13px;
+  background:var(--cm-panel); color:var(--cm-text); outline:none; resize:none;
+}
+.reply-form button{
+  align-self:flex-start; border:none; border-radius:8px; background:#3ecf8e; color:#0a0a0a;
+  font-weight:700; font-size:12px; padding:7px 14px; cursor:pointer;
+}
+.admin-login-row{ display:none; gap:6px; padding:10px 18px; border-bottom:1px solid var(--cm-line); background:var(--cm-head); }
+.admin-login-row.open{ display:flex; }
+.admin-login-row input{
+  flex:1; border:1px solid var(--cm-line); border-radius:8px; padding:8px 10px; font:inherit; font-size:12.5px;
+  background:var(--cm-panel); color:var(--cm-text); outline:none;
+}
+.admin-login-row button{
+  border:none; border-radius:8px; background:#2fb37b; color:#0a0a0a; font-weight:700;
+  font-size:12px; padding:0 14px; cursor:pointer;
+}
+.comment-form{
+  display:flex; flex-direction:column; gap:8px; padding:12px 14px;
+  padding-bottom:calc(12px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--cm-line); flex-shrink:0; background:var(--cm-head);
+}
+.comment-form input[type="text"]{
+  border:1px solid var(--cm-line); border-radius:18px; padding:11px 13px; font:inherit; font-size:14.5px;
+  color:var(--cm-text); background:var(--cm-item); outline:none;
+  transition:border-color .15s ease;
+}
+.comment-form input::placeholder, .comment-form textarea::placeholder{ color:var(--cm-faint); }
+.comment-form input[type="text"]:focus{ border-color:#3ecf8e; box-shadow:0 0 0 3px rgba(62,207,142,0.18); }
+.comment-error{ font-size:12px; color:#f87171; min-height:14px; }
+.comment-input-row{ display:flex; align-items:flex-end; gap:8px; }
+.comment-input-wrap{
+  position:relative; flex:1 1 auto; display:flex; align-items:center; overflow:hidden;
+  border:1px solid var(--cm-line); border-radius:22px; background:var(--cm-item);
+  transition:border-color .15s ease;
+}
+.comment-input-wrap:focus-within{ border-color:#3ecf8e; box-shadow:0 0 0 3px rgba(62,207,142,0.18); }
+.comment-input-wrap textarea{
+  flex:1 1 auto; border:none; background:transparent; outline:none; resize:none;
+  font:inherit; font-size:14.5px; color:var(--cm-text); padding:11px 4px 11px 16px;
+  max-height:100px; line-height:1.35; -webkit-appearance:none; appearance:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.comment-input-wrap textarea:focus{ outline:none; border:none; box-shadow:none; }
+.comment-image-icon-btn{
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  width:38px; height:38px; margin-right:2px; border-radius:50%; cursor:pointer;
+  color:var(--cm-sub);
+}
+.comment-image-icon-btn svg{ width:21px; height:21px; }
+.comment-image-icon-btn:active{ color:#3ecf8e; }
+#comment-submit{
+  flex-shrink:0; width:42px; height:42px; border-radius:50%; border:none;
+  background:#3ecf8e; color:#0a0a0a; font-size:18px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:background .15s ease;
+}
+#comment-submit:active{ background:#2fb37b; }
+#comment-submit:disabled{ opacity:0.5; cursor:default; }
+.comment-image-preview{ position:relative; width:fit-content; }
+.comment-image-preview.hidden{ display:none; }
+.comment-image-preview img{
+  max-height:110px; max-width:150px; border-radius:10px; display:block; border:1px solid var(--cm-line); object-fit:cover;
+}
+.comment-image-preview button{
+  position:absolute; top:-8px; right:-8px; width:22px; height:22px; border-radius:50%; border:none;
+  background:#f87171; color:#0a0a0a; font-size:14px; font-weight:700; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+#comment-lightbox{
+  position:fixed; inset:0; z-index:950; background:rgba(0,0,0,0.9); display:none;
+  align-items:center; justify-content:center; padding:20px;
+}
+#comment-lightbox.open{ display:flex; }
+#comment-lightbox img{ max-width:100%; max-height:100%; border-radius:8px; }
+
+@media (max-width:480px){
+  h1{ font-size:22px; }
+  .q-text{ font-size:14.5px; }
+  main{ padding:14px 10px 50px; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark / light mode">
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4.5"/>
+    <path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/>
+  </svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.4 14.9c-1 .3-2 .5-3 .5-5 0-9-4-9-9 0-1 .2-2 .5-3-3.6 1-6.2 4.3-6.2 8.2 0 4.7 3.8 8.5 8.5 8.5 3.9 0 7.2-2.6 8.2-6.2z"/>
+  </svg>
+</button>
+
+<div id="lock-overlay">
+  <div class="lock-card">
+    <div class="lock-icon">&#128274;</div>
+    <div class="lock-dept">Department of Nursing</div>
+    <div class="lock-title">COS 102</div>
+    <div class="lock-quote" id="lock-quote"></div>
+    <div class="lock-sub">Enter your registration number to access this quiz.</div>
+    <input id="lock-password" type="password" inputmode="text" placeholder="Reg. number" autocomplete="off">
+    <button id="lock-submit" type="button">Unlock</button>
+    <div id="lock-error" class="lock-error">Not recognized — try again.</div>
+  </div>
+</div>
+<script>
+(function(){
+  var quotes = ["If you want to be rich, change your name to rich. \u2014Master Shifu", "Don't give up on your dreams, keep sleeping. \u2014Aang", "If someone tells you a secret, tell everyone so you don't forget. \u2014Sofia the First", "If you want to be right, then don't go to left. \u2014Jackie Chan", "Just because you don't give up, it doesn't mean you can make it. \u2014Kung Fu Panda", "Every time I close my eyes, I can't see. \u2014Ben 10", "Resting all day is still a plan. \u2014Sun Tzu", "If you don't try you won't fail. \u2014Confucius", "When nothing makes sense, add more nothing. \u2014Gu Jun-pyo", "You can't see me. \u2014John Cena", "If failure let you learn, then be a failure. \u2014Mufasa, The Lion King", "To fool your enemy is to fool yourself so keep fooling around. \u2014Obama", "If you don't understand the question, the question doesn't understand you either. \u2014619", "Let him cook. \u2014The Rock", "If you can't beat them, confuse them until they leave. \u2014Sun Tzu", "The best way to predict the future is to avoid thinking about it. \u2014SpongeBob", "When life gives you a challenge, ignore the notification. \u2014Shrek"];
+  var el = document.getElementById("lock-quote");
+  if (el && quotes.length) {
+    var i = Math.floor(Math.random() * quotes.length);
+    el.textContent = quotes[i];
+    setInterval(function(){
+      i = (i + 1) % quotes.length;
+      el.textContent = quotes[i];
+    }, 4200);
+  }
+})();
+</script>
+
+
+<button id="comment-fab" class="pulse" type="button" aria-label="Comments">
+  &#128172;<span id="comment-badge">0</span>
+</button>
+<div id="comment-panel">
+  <div class="comment-head">
+    <div class="comment-head-left"><span>Comments</span></div>
+    <div class="comment-head-left">
+      <button class="comment-admin-link" id="comment-admin-link" type="button">Admin</button>
+      <button class="comment-close" id="comment-close" type="button" aria-label="Close">&times;</button>
+    </div>
+  </div>
+  <div class="admin-login-row" id="admin-login-row">
+    <input id="admin-password-input" type="password" placeholder="Admin password" autocomplete="off">
+    <button id="admin-login-btn" type="button">Unlock</button>
+  </div>
+  <div id="comment-list"><div class="comment-empty">Loading comments…</div></div>
+  <div class="comment-form">
+    <input id="comment-name" type="text" placeholder="Your name (optional)" maxlength="60" autocomplete="off">
+    <div class="comment-error" id="comment-error"></div>
+    <div class="comment-image-preview hidden" id="comment-image-preview">
+      <img id="comment-image-preview-img" src="" alt="">
+      <button id="comment-image-remove" type="button" aria-label="Remove photo">&times;</button>
+    </div>
+    <div class="comment-input-row">
+      <div class="comment-input-wrap">
+        <textarea id="comment-msg" rows="1" placeholder="Write a comment…" maxlength="600"></textarea>
+        <label class="comment-image-icon-btn" for="comment-image" aria-label="Add photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 8.6C4 7.72 4.72 7 5.6 7H8.2L9.35 5.35C9.55 5.06 9.88 4.9 10.23 4.9H13.77C14.12 4.9 14.45 5.06 14.65 5.35L15.8 7H18.4C19.28 7 20 7.72 20 8.6V17.3C20 18.18 19.28 18.9 18.4 18.9H5.6C4.72 18.9 4 18.18 4 17.3V8.6Z"/>
+            <circle cx="12" cy="13" r="3.3"/>
+          </svg>
+        </label>
+        <input id="comment-image" type="file" accept="image/*" style="display:none">
+      </div>
+      <button id="comment-submit" type="button" aria-label="Post comment">&#10148;</button>
+    </div>
+  </div>
+</div>
+<div id="comment-lightbox"><img id="comment-lightbox-img" src="" alt=""></div>
+<header>
+  <div class="dept">Department of Nursing</div>
+  <h1>COS 102</h1>
+  <div class="ecg-wrap">
+    <svg class="ecg-svg" viewBox="0 0 3832 50" preserveAspectRatio="none">
+      <path id="ecg-beat" class="ecg-line" d="M0,25 L18.3,25 C24.8,25 24.8,21.2 24.8,21.2 C24.8,21.2 31.3,25 31.3,25 L42.3,25 L50.5,29.6 L54.7,4.7 L61.8,34.2 L70.0,25 L85.2,25 C94.5,25 94.5,21.2 94.5,21.2 C94.5,21.2 103.7,25 103.7,25 L185.2,25 L211.3,25 C216.6,25 216.6,16.9 216.6,16.9 C216.6,16.9 222.0,25 222.0,25 L237.0,25 L245.7,28.4 L253.4,3.5 L257.2,34.7 L265.9,25 L274.0,25 C279.2,25 279.2,21.0 279.2,21.0 C279.2,21.0 284.4,25 284.4,25 L421.9,25 L451.0,25 C457.4,25 457.4,11.7 457.4,11.7 C457.4,11.7 463.8,25 463.8,25 L481.6,25 L490.9,31.9 L496.8,10.8 L503.0,43.3 L512.3,25 L529.1,25 C538.4,25 538.4,21.0 538.4,21.0 C538.4,21.0 547.6,25 547.6,25 L696.0,25 L711.5,25 L724.7,25 L729.5,29.8 L735.6,5.3 L740.6,36.5 L745.4,25 L757.4,25 C765.8,25 765.8,17.0 765.8,17.0 C765.8,17.0 774.2,25 774.2,25 L846.7,25 L872.9,25 C877.9,25 877.9,21.9 877.9,21.9 C877.9,21.9 882.8,25 882.8,25 L892.1,25 L899.8,29.3 L903.7,10.8 L907.7,36.6 L915.4,25 L930.0,25 C935.2,25 935.2,11.1 935.2,11.1 C935.2,11.1 940.5,25 940.5,25 L1147.5,25 L1167.0,25 C1176.9,25 1176.9,13.0 1176.9,13.0 C1176.9,13.0 1186.7,25 1186.7,25 L1196.8,25 L1205.2,29.1 L1210.5,3.2 L1215.6,32.3 L1224.0,25 L1237.1,25 C1242.5,25 1242.5,18.2 1242.5,18.2 C1242.5,18.2 1247.9,25 1247.9,25 L1387.0,25 L1402.1,25 C1409.4,25 1409.4,11.6 1409.4,11.6 C1409.4,11.6 1416.7,25 1416.7,25 L1426.3,25 L1432.7,28.5 L1439.9,3.4 L1443.7,45.9 L1450.1,25 L1461.6,25 C1467.8,25 1467.8,22.7 1467.8,22.7 C1467.8,22.7 1474.0,25 1474.0,25 L1636.1,25 L1655.5,25 L1671.2,25 L1679.9,32.0 L1685.9,14.7 L1691.6,37.3 L1700.3,25 L1706.5,25 C1711.9,25 1711.9,12.8 1711.9,12.8 C1711.9,12.8 1717.4,25 1717.4,25 L1915.8,25"/>
+      <use href="#ecg-beat" x="1915.8" class="ecg-line"/>
+    </svg>
+  </div>
+  <div class="meta">130 questions &nbsp;&bull;&nbsp; 1 topics &nbsp;&bull;&nbsp; pick a topic to begin</div>
+</header>
+<main>
+  <div id="toc-view"><div id="toc-list" class="toc-list"></div></div>
+  <div id="topic-view" class="hidden"></div>
+</main>
+<footer>DEPARTMENT OF NURSING MCQ COMPENDIUM</footer>
+<script>
+// --- Theme (light / dark) ---------------------------------------------------
+(function(){
+  const THEME_KEY = "quizTheme";
+  let saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch(e) {}
+  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  const initial = saved || (prefersLight ? "light" : "dark");
+  document.documentElement.setAttribute("data-theme", initial);
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    let seenToggle = false;
+    try { seenToggle = localStorage.getItem("themeToggleSeen") === "1"; } catch(e) {}
+    if (!seenToggle) btn.classList.add("pulse");
+
+    btn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem(THEME_KEY, next); } catch(e) {}
+      btn.classList.remove("pulse");
+      try { localStorage.setItem("themeToggleSeen", "1"); } catch(e) {}
+    });
+  });
+})();
+
+const TOPICS = [{"title": "TOPIC: Core Concepts, History & Components of Computing", "subtitle": null, "qcount": 130, "items": [{"type": "question", "n": 1, "text": "Which of the following is the most accurate definition of computing?", "options": [{"letter": "A", "text": "The physical act of typing on a keyboard."}, {"letter": "B", "text": "The study of computer hardware components only."}, {"letter": "C", "text": "The process of connecting to the internet."}, {"letter": "D", "text": "Any purposeful activity that requires, benefits from, or results in the use of computers."}], "answer": "D", "explanation": " Computing encompasses far more than just physical interaction or hardware study because it is defined as any purposeful activity that requires, benefits from, or results in the use of computers.", "picked": null}, {"type": "question", "n": 2, "text": "According to the document, which of the following is NOT a component of a computing system?", "options": [{"letter": "A", "text": "The context in which the computer is utilized"}, {"letter": "B", "text": "The user"}, {"letter": "C", "text": "The computer's manufacturing date"}, {"letter": "D", "text": "The computer system"}], "answer": "C", "explanation": " The computing system is comprised of three key components: the user, the computer system, and the context in which the computer is utilized, making the manufacturing date irrelevant to its operational definition.", "picked": null}, {"type": "question", "n": 3, "text": "Which two primary classifications of software are discussed?", "options": [{"letter": "A", "text": "Operating software and Utility software"}, {"letter": "B", "text": "System software and Application software"}, {"letter": "C", "text": "Freeware and Shareware"}, {"letter": "D", "text": "Microsoft software and Linux software"}], "answer": "B", "explanation": " The two primary classifications of software are system software and application software, which serve distinct roles in managing hardware and performing user tasks.", "picked": null}, {"type": "question", "n": 4, "text": "The physical, touchable parts of a computer system are collectively known as:", "options": [{"letter": "A", "text": "Programs"}, {"letter": "B", "text": "Hardware"}, {"letter": "C", "text": "Software"}, {"letter": "D", "text": "Firmware"}], "answer": "B", "explanation": " Hardware is defined as the physical components of the computer system, including the casing, CPU, RAM, and other touchable parts that make up the entire system.", "picked": null}, {"type": "question", "n": 5, "text": "The term that refers to the merging of computer technology and communication technology is:", "options": [{"letter": "A", "text": "ICT"}, {"letter": "B", "text": "The Internet"}, {"letter": "C", "text": "World Wide Web"}, {"letter": "D", "text": "Information Technology (IT)"}], "answer": "A", "explanation": " ICT refers to the merging of computer technology and communication technology, which has led to the development of technologies that have transformed virtually every aspect of human activity.", "picked": null}, {"type": "question", "n": 6, "text": "What is the function of system software?", "options": [{"letter": "A", "text": "To manage, integrate, and control the various hardware components of a computer system."}, {"letter": "B", "text": "To perform specific tasks for the user, like word processing."}, {"letter": "C", "text": "To create documents and spreadsheets."}, {"letter": "D", "text": "To provide a user interface for playing games."}], "answer": "A", "explanation": " System software is in charge of managing, integrating, and controlling the various hardware components of a computer system, enabling other software and users to interact with it as a cohesive unit.", "picked": null}, {"type": "question", "n": 7, "text": "Which of the following is an example of system software?", "options": [{"letter": "A", "text": "MySQL"}, {"letter": "B", "text": "An image viewer"}, {"letter": "C", "text": "Microsoft Windows"}, {"letter": "D", "text": "Microsoft Word"}], "answer": "C", "explanation": " An Operating System (OS) like Microsoft Windows controls and manages the functioning of a computer's hardware components, which is the primary role of system software.", "picked": null}, {"type": "question", "n": 8, "text": "According to the table comparing hardware and software, which statement is true?", "options": [{"letter": "A", "text": "Software is more important than hardware for a computer to function."}, {"letter": "B", "text": "Hardware contains the physical parts of the computer system, while software is a set of program instructions."}, {"letter": "C", "text": "Hardware and software are independent of each other."}, {"letter": "D", "text": "Software can be touched, but hardware cannot."}], "answer": "B", "explanation": " The table clearly distinguishes them by stating that hardware contains the physical parts of the computer system, whereas software is a set of program instructions that tells the computer system what it should do.", "picked": null}, {"type": "question", "n": 9, "text": "In the context of computing operations, the Arithmetic and Logical Unit (ALU) is a component of the:", "options": [{"letter": "A", "text": "Central Processing Unit (CPU)"}, {"letter": "B", "text": "Input Unit"}, {"letter": "C", "text": "Storage Unit"}, {"letter": "D", "text": "Output Unit"}], "answer": "A", "explanation": " The Central Processing Unit (CPU) houses the arithmetic logic unit (ALU) together with the control unit (CU), which are responsible for carrying out processing operations.", "picked": null}, {"type": "question", "n": 10, "text": "During computing operations, \"processing\" is carried out by which unit?", "options": [{"letter": "A", "text": "The Central Processing Unit"}, {"letter": "B", "text": "The output unit"}, {"letter": "C", "text": "The input unit"}, {"letter": "D", "text": "The storage unit"}], "answer": "A", "explanation": " Processing operations are carried out by the Central Processing Unit (CPU), which is regarded as the brain of the computer because it does all the data processing and decision-making.", "picked": null}, {"type": "question", "n": 11, "text": "Which component of the CPU is specifically responsible for data processing and decision-making?", "options": [{"letter": "A", "text": "The memory unit"}, {"letter": "B", "text": "The control unit"}, {"letter": "C", "text": "The input unit"}, {"letter": "D", "text": "The Arithmetic and Logical Unit (ALU)"}], "answer": "D", "explanation": " The CPU does all the data processing and decision-making, and its ALU is a key component that does this work along with the Control Unit and Bank of Registers.", "picked": null}, {"type": "question", "n": 12, "text": "When data that was inputted into the computer has been processed by the CPU, where does the CPU direct the results?", "options": [{"letter": "A", "text": "To the input unit for further processing"}, {"letter": "B", "text": "To the storage unit for permanent storage"}, {"letter": "C", "text": "To the output unit to be received by the user as information"}, {"letter": "D", "text": "Back to the ALU for re-processing"}], "answer": "C", "explanation": " The CPU directs the results that have been gotten to the output unit to be received by the user as information, making the output unit the destination for processed data.", "picked": null}, {"type": "question", "n": 13, "text": "Devices like a headset, projector, speakers, and monitors are examples of:", "options": [{"letter": "A", "text": "Output devices"}, {"letter": "B", "text": "Processing devices"}, {"letter": "C", "text": "Input devices"}, {"letter": "D", "text": "Storage devices"}], "answer": "A", "explanation": " These devices all present processed results to the user, and the output unit is explicitly defined as a collection of devices that gives information about what has been processed.", "picked": null}, {"type": "question", "n": 14, "text": "A microphone is classified as which type of device?", "options": [{"letter": "A", "text": "A communication device only"}, {"letter": "B", "text": "A processing device"}, {"letter": "C", "text": "An output device"}, {"letter": "D", "text": "An input device"}], "answer": "D", "explanation": " The input unit is made up of several devices which carry out tasks that are input-related, and these devices include the keyboard, mouse, scanner, card reader, or microphone, used to give instructions to the computer.", "picked": null}, {"type": "question", "n": 15, "text": "The operation that allows a computer to keep its data permanently or temporarily is known as the:", "options": [{"letter": "A", "text": "Storage operation"}, {"letter": "B", "text": "Processing operation"}, {"letter": "C", "text": "Input operation"}, {"letter": "D", "text": "Output operation"}], "answer": "A", "explanation": " Storage operations allow a computer to keep its data permanently or temporarily, enabling users to retain various types of information for future use.", "picked": null}, {"type": "question", "n": 16, "text": "Which of the following is NOT listed as a component needed for successful communication operations?", "options": [{"letter": "A", "text": "The receiver"}, {"letter": "B", "text": "The user's manual"}, {"letter": "C", "text": "A communications channel/device"}, {"letter": "D", "text": "The sender"}], "answer": "B", "explanation": " For communication to take place successfully, the components needed are the sender, the message, the receiver, a communications channel/device, and the protocol, making a user's manual unnecessary.", "picked": null}, {"type": "question", "n": 17, "text": "The set of rules that govern the communication between the sender and the recipient is known as the:", "options": [{"letter": "A", "text": "Protocol"}, {"letter": "B", "text": "Sender"}, {"letter": "C", "text": "Message"}, {"letter": "D", "text": "Receiver"}], "answer": "A", "explanation": " The protocol is defined as the set of rules that govern the communication between the sender and the recipient, ensuring successful data transfer.", "picked": null}, {"type": "question", "n": 18, "text": "Which type of computer is described as the most powerful computer currently available, specifically useful for scientific research like nuclear research?", "options": [{"letter": "A", "text": "Personal Computer"}, {"letter": "B", "text": "Supercomputer"}, {"letter": "C", "text": "Mainframe"}, {"letter": "D", "text": "Mid-range"}], "answer": "B", "explanation": " A supercomputer refers to the most powerful computer that is currently available and is particularly useful for scientific research, most especially in the field of nuclear research.", "picked": null}, {"type": "question", "n": 19, "text": "Mainframe computers are typically used by which types of organizations?", "options": [{"letter": "A", "text": "Large organizations like power companies and financial institutions"}, {"letter": "B", "text": "Schools for basic computer education"}, {"letter": "C", "text": "Individual consumers"}, {"letter": "D", "text": "Small home offices"}], "answer": "A", "explanation": " Mainframe computers are typically used by large organizations such as power companies, telecommunication companies, and financial institutions due to their enormous input, output, and storage capabilities.", "picked": null}, {"type": "question", "n": 20, "text": "In terms of power and capability, a midrange computer falls between a:", "options": [{"letter": "A", "text": "Personal Computer and a Mainframe"}, {"letter": "B", "text": "Supercomputer and a Mainframe"}, {"letter": "C", "text": "Laptop and a Desktop"}, {"letter": "D", "text": "Palmtop and a Pocket PC"}], "answer": "A", "explanation": " A midrange computer falls in between a general-purpose personal computer and a full-size mainframe computer in terms of power and capability.", "picked": null}, {"type": "question", "n": 21, "text": "Desktop and Tower units are described as the first and most prevalent type of:", "options": [{"letter": "A", "text": "Supercomputer"}, {"letter": "B", "text": "Mid-range Computer"}, {"letter": "C", "text": "Personal Computer (PC)"}, {"letter": "D", "text": "Mainframe"}], "answer": "C", "explanation": " Desktop and Tower units are identified as the first and most prevalent type of PC because they established the foundational design for personal computers, being just large enough to be portable yet small enough to fit on a desk.", "picked": null}, {"type": "question", "n": 22, "text": "Which of the following is considered a Pocket PC?", "options": [{"letter": "A", "text": "A workstation"}, {"letter": "B", "text": "A desktop tower unit"}, {"letter": "C", "text": "A tablet"}, {"letter": "D", "text": "A mainframe computer"}], "answer": "C", "explanation": " A pocket PC is a mobile device or a portable computer which can be held in the hand or fits in a pocket, and examples include smartphones, e-readers, and tablets.", "picked": null}, {"type": "question", "n": 23, "text": "Personal Digital Assistants (PDAs) are operated using a stylus on a:", "options": [{"letter": "A", "text": "Physical keyboard"}, {"letter": "B", "text": "Trackpad"}, {"letter": "C", "text": "Mouse"}, {"letter": "D", "text": "Touch screen"}], "answer": "D", "explanation": " Personal Digital Assistants (PDA) are compact handheld computers with touch screens that are operated with a stylus, allowing data entry through a virtual keyboard.", "picked": null}, {"type": "question", "n": 24, "text": "The terms \"microcomputers\" and \"personal computers\" are often used interchangeably to describe computers that are:", "options": [{"letter": "A", "text": "Designed for individual use"}, {"letter": "B", "text": "Designed for large organizations"}, {"letter": "C", "text": "Used only in scientific research"}, {"letter": "D", "text": "The most powerful computers available"}], "answer": "A", "explanation": " The terms \"microcomputers\" and \"personal computers\" are often used interchangeably to refer to small computers that are designed for individual use.", "picked": null}, {"type": "question", "n": 25, "text": "Cloud computing is a technology that consists of a network of remote servers hosted on the:", "options": [{"letter": "A", "text": "Supercomputer"}, {"letter": "B", "text": "Local network"}, {"letter": "C", "text": "Internet"}, {"letter": "D", "text": "Personal computer"}], "answer": "C", "explanation": " Cloud computing is a technology that is made up of a network of remote servers that are hosted on the Internet to manage data instead of making use of a local server or a personal computer.", "picked": null}, {"type": "question", "n": 26, "text": "Which of the following is provided as an example of a cloud computing service?", "options": [{"letter": "A", "text": "Microsoft Windows"}, {"letter": "B", "text": "A CPU"}, {"letter": "C", "text": "Google Drive"}, {"letter": "D", "text": "A physical hard drive"}], "answer": "C", "explanation": " Some common examples of cloud computing technologies that are used today include Google Drive, Dropbox, iCloud, Amazon S3, Microsoft One Drive, etc.", "picked": null}, {"type": "question", "n": 27, "text": "Grid computing is a technology that combines several computer resources in diverse geographical locations to:", "options": [{"letter": "A", "text": "Replace a mainframe."}, {"letter": "B", "text": "Serve as a web server."}, {"letter": "C", "text": "Provide cloud storage."}, {"letter": "D", "text": "Accomplish a particular assignment."}], "answer": "D", "explanation": " Grid computing is a technology that uses a combination of several computer resources that are in diverse geographical locations in order to accomplish a particular assignment.", "picked": null}, {"type": "question", "n": 28, "text": "Which application is listed as an area where grid computing is applied?", "options": [{"letter": "A", "text": "Playing video games"}, {"letter": "B", "text": "Web browsing"}, {"letter": "C", "text": "Word processing"}, {"letter": "D", "text": "Scientific research"}], "answer": "D", "explanation": " Grid computing is greatly applied in scientific research to simulate the behaviour of a nuclear explosion, model the human genome, or analyze massive amounts of data generated from particle accelerators.", "picked": null}, {"type": "question", "n": 29, "text": "Distributed computing involves dividing software components among several computer devices in different locations to:", "options": [{"letter": "A", "text": "Make the system less efficient."}, {"letter": "B", "text": "Run them as one system to improve efficiency and performance."}, {"letter": "C", "text": "Reduce the need for the internet."}, {"letter": "D", "text": "Increase the cost of computing."}], "answer": "B", "explanation": " Distributed computing is a system whereby software components are divided among several computer devices... they are usually run as one system to improve efficiency and performance.", "picked": null}, {"type": "question", "n": 30, "text": "In cluster computing, each connected device on the network is known as a:", "options": [{"letter": "A", "text": "Terminal"}, {"letter": "B", "text": "Client"}, {"letter": "C", "text": "Node"}, {"letter": "D", "text": "Server"}], "answer": "C", "explanation": " Cluster computing enables several computers to be connected on a network and operate like an individual entity, and each connected device is known as a node.", "picked": null}, {"type": "question", "n": 31, "text": "Which computing method allows many users with diverse programs to interact almost at the same time with the CPU of a large computer?", "options": [{"letter": "A", "text": "Time-Sharing Computing"}, {"letter": "B", "text": "Cloud Computing"}, {"letter": "C", "text": "Client-Server Computing"}, {"letter": "D", "text": "Personal Computing"}], "answer": "A", "explanation": " Time-Sharing Computing is a computing method whereby many users with diverse programs interact almost at the same time with the central processing unit (CPU) of a large computer.", "picked": null}, {"type": "question", "n": 32, "text": "The symbiotic link between hardware and software means that:", "options": [{"letter": "A", "text": "They are independent and can function without each other."}, {"letter": "B", "text": "They are dependent on each other to function and reach their full potential."}, {"letter": "C", "text": "Hardware is more important than software."}, {"letter": "D", "text": "Software is more important than hardware."}], "answer": "B", "explanation": " A symbiotic link exists between hardware and software; without software, hardware is severely limited and cannot function at all, and they require one another to function.", "picked": null}, {"type": "question", "n": 33, "text": "According to the table, system software is to application software as:", "options": [{"letter": "A", "text": "Optional is to compulsory."}, {"letter": "B", "text": "User-friendly is to complex."}, {"letter": "C", "text": "Compulsory is to optional."}, {"letter": "D", "text": "Dependent is to independent."}], "answer": "C", "explanation": " The table states that system software is compulsory for each computer, whereas application software is optional, depending on the needs of the user.", "picked": null}, {"type": "question", "n": 34, "text": "An example of a task that requires a supercomputer's capabilities is:", "options": [{"letter": "A", "text": "Writing a document."}, {"letter": "B", "text": "Processing a 45-hour simulation program in 30 minutes."}, {"letter": "C", "text": "Creating a spreadsheet."}, {"letter": "D", "text": "Browsing the internet."}], "answer": "B", "explanation": " A micro-computer would take 45 hours to complete a simulation program for an air pollution management project, whereas a supercomputer would only need 30 minutes, demonstrating its immense power.", "picked": null}, {"type": "question", "n": 35, "text": "Users typically access mainframe computers through terminals, which consist of a:", "options": [{"letter": "A", "text": "Mouse and a printer."}, {"letter": "B", "text": "Touch screen and a stylus."}, {"letter": "C", "text": "Joystick and speakers."}, {"letter": "D", "text": "Keyboard and a monitor."}], "answer": "D", "explanation": " Users typically access mainframe computers through terminals, which consist of a keyboard and a video display or monitor.", "picked": null}, {"type": "question", "n": 36, "text": "Which of the following is NOT listed as a component of a communications system?", "options": [{"letter": "A", "text": "The protocol"}, {"letter": "B", "text": "The power supply"}, {"letter": "C", "text": "The message"}, {"letter": "D", "text": "The sender"}], "answer": "B", "explanation": " A communications system is made up of computers and computing devices, and its components are defined as the sender, message, receiver, communications channel/device, and protocol, which excludes the power supply.", "picked": null}, {"type": "question", "n": 37, "text": "The primary function of the input unit is to:", "options": [{"letter": "A", "text": "Create an avenue for a user to give instructions to the computer."}, {"letter": "B", "text": "Perform calculations on data."}, {"letter": "C", "text": "Store data for future use."}, {"letter": "D", "text": "Display processed information to the user."}], "answer": "A", "explanation": " The input unit creates an avenue for a user to give instructions to the computer; it is a link between the user and the computer.", "picked": null}, {"type": "question", "n": 38, "text": "What is the role of the Control Unit within the CPU?", "options": [{"letter": "A", "text": "To perform arithmetic calculations."}, {"letter": "B", "text": "To store data permanently."}, {"letter": "C", "text": "To manage the computer's external power supply."}, {"letter": "D", "text": "To control and coordinate the activities of all other components."}], "answer": "D", "explanation": " The control unit is a component of the CPU that works together with the ALU and the Bank of Registers to carry out processing operations, and its primary role is to direct the operation of the processor.", "picked": null}, {"type": "question", "n": 39, "text": "Why is the CPU regarded as the brain of the computer?", "options": [{"letter": "A", "text": "Because it provides power to the computer."}, {"letter": "B", "text": "Because it does all the data processing and decision-making."}, {"letter": "C", "text": "Because it stores all the user's data."}, {"letter": "D", "text": "Because it is the most expensive part."}], "answer": "B", "explanation": " The CPU is regarded as the brain of the computer, and this is because it does all the data processing and decision-making in the computer.", "picked": null}, {"type": "question", "n": 40, "text": "The operation that enables two or more devices to interact with each other and transfer data is known as:", "options": [{"letter": "A", "text": "Communication operation"}, {"letter": "B", "text": "Processing operation"}, {"letter": "C", "text": "Input operation"}, {"letter": "D", "text": "Storage operation"}], "answer": "A", "explanation": " Communication operations are those operations that enable two or more devices to interact with each other, and this interaction includes the transfer of data, instructions, and information.", "picked": null}, {"type": "question", "n": 41, "text": "According to the provided text, the computer is no longer only used in laboratories but is now present in:", "options": [{"letter": "A", "text": "Only scientific institutions."}, {"letter": "B", "text": "Only large corporations."}, {"letter": "C", "text": "Only government offices."}, {"letter": "D", "text": "Nearly everything we use."}], "answer": "D", "explanation": " The computer is no longer only used in laboratories. Computers and computing in general are now present in practically everything we use, and its use cuts across many fields.", "picked": null}, {"type": "question", "n": 42, "text": "Which of the following operations is carried out by the storage unit of the computer?", "options": [{"letter": "A", "text": "Receiving instructions from the user"}, {"letter": "B", "text": "Keeping data permanently or temporarily"}, {"letter": "C", "text": "Displaying processed results to the user"}, {"letter": "D", "text": "Performing arithmetic calculations"}], "answer": "B", "explanation": " Storage operations allow a computer to keep its data permanently or temporarily, and these operations are carried out by the storage unit of the computer.", "picked": null}, {"type": "question", "n": 43, "text": "Which of the following is NOT a reason given for why everyone should have knowledge of computing?", "options": [{"letter": "A", "text": "Learning about computing reveals profound perceptions about our brains and society."}, {"letter": "B", "text": "It is necessary to design and build a supercomputer."}, {"letter": "C", "text": "Computing is the driving force behind all current cutting-edge technologies."}, {"letter": "D", "text": "It has had a significant impact on the trajectory of human history."}], "answer": "B", "explanation": " The document provides two reasons for having knowledge of computing: 1) it drives current technologies and 2) it reveals profound perceptions about our brains and society. Designing a supercomputer is not listed as a reason for everyone.", "picked": null}, {"type": "question", "n": 44, "text": "Learning about computing can reveal profound perceptions and raise queries about the nature of our:", "options": [{"letter": "A", "text": "Software, hardware, and peripherals."}, {"letter": "B", "text": "Salary, job, and career."}, {"letter": "C", "text": "Computers, internet, and networks."}, {"letter": "D", "text": "Brains, civilization, and environment."}], "answer": "D", "explanation": " Learning about computing reveals profound perceptions and raises queries about the nature of our brains, our civilization, and our environment.", "picked": null}, {"type": "question", "n": 45, "text": "Which of the following is NOT listed as a way computing has improved mental ability?", "options": [{"letter": "A", "text": "Computing eliminates the need for human thinking."}, {"letter": "B", "text": "The availability of automatic computers has influenced problem-solving."}, {"letter": "C", "text": "Computers have integrated into nearly all aspects of daily life."}, {"letter": "D", "text": "Computers can make use of machines to make realistic any mental idea."}], "answer": "A", "explanation": " The document states that computing improves mental ability and that computers can make use of machines to make realistic any mental idea, but it does not claim computing eliminates human thinking.", "picked": null}, {"type": "question", "n": 46, "text": "What is an Operating System (OS)?", "options": [{"letter": "A", "text": "A set of software programs that controls and manages a computer's hardware components."}, {"letter": "B", "text": "A programming language."}, {"letter": "C", "text": "A type of application software."}, {"letter": "D", "text": "A physical component of a computer."}], "answer": "A", "explanation": " An Operating System (OS) is a set of software programs that controls and manages the functioning of a computer's hardware components, serving as the core system software.", "picked": null}, {"type": "question", "n": 47, "text": "Which of the following is NOT listed as a popular operating system?", "options": [{"letter": "A", "text": "Mac OS X"}, {"letter": "B", "text": "Microsoft Office"}, {"letter": "C", "text": "Linux"}, {"letter": "D", "text": "Microsoft Windows"}], "answer": "B", "explanation": " Microsoft Office is not a system software or OS; it is an application software, while Microsoft Windows, Mac OS X, and Linux are all listed as examples of operating systems.", "picked": null}, {"type": "question", "n": 48, "text": "The main advantage of cloud computing, as stated in the text, is that it gives users access to their data:", "options": [{"letter": "A", "text": "Only during business hours."}, {"letter": "B", "text": "Only from a specific computer."}, {"letter": "C", "text": "Whenever they need it and from wherever they are with internet access."}, {"letter": "D", "text": "Only when they are at home."}], "answer": "C", "explanation": " Cloud computing services give users access to their data whenever they need it and from wherever they are at that particular time for as long as they have access to internet services.", "picked": null}, {"type": "question", "n": 49, "text": "What has led to the development of information and communication technologies that have transformed virtually every aspect of human activity?", "options": [{"letter": "A", "text": "The invention of the personal computer"}, {"letter": "B", "text": "The development of supercomputers"}, {"letter": "C", "text": "The invention of the internet"}, {"letter": "D", "text": "The merging of computer technology and communication technology (ICT)"}], "answer": "D", "explanation": " ICT refers to the merging of computer technology and communication technology, which has led to the development of technologies that have transformed virtually every aspect of human activity.", "picked": null}, {"type": "question", "n": 50, "text": "In grid computing, all unused resources on multiple computers are pooled together to:", "options": [{"letter": "A", "text": "Create a single virtual supercomputer."}, {"letter": "B", "text": "Reduce the speed of computation."}, {"letter": "C", "text": "Increase the cost of processing."}, {"letter": "D", "text": "Simplify the network architecture."}], "answer": "A", "explanation": " In grid computing, all unused resources on multiple computers are pooled together and made available for a single task to operate as a single virtual supercomputer.", "picked": null}, {"type": "question", "n": 51, "text": "The terms \"source\" and \"receiver\" in the context of communication operations refer to:", "options": [{"letter": "A", "text": "The user and the computer."}, {"letter": "B", "text": "The sender and the recipient of the message."}, {"letter": "C", "text": "The input device and the output device."}, {"letter": "D", "text": "The storage unit and the processing unit."}], "answer": "B", "explanation": " The source is the device that initiates communication by sending a request, also known as the sender, while the receiver is the recipient of the message, making them the originator and destination of the communication.", "picked": null}, {"type": "question", "n": 52, "text": "The process where a server prioritizes requests from clients is a feature of:", "options": [{"letter": "A", "text": "Cluster Computing"}, {"letter": "B", "text": "Time-Sharing Computing"}, {"letter": "C", "text": "Personal Computing"}, {"letter": "D", "text": "Client-Server Computing"}], "answer": "D", "explanation": " In Client-Server Computing, a server will be able to take only a few number of requests from clients at a time, so it makes use of a system-based technique to prioritise requests.", "picked": null}, {"type": "question", "n": 53, "text": "The main purpose of the summary in the document is to:", "options": [{"letter": "A", "text": "Provide a detailed analysis."}, {"letter": "B", "text": "Introduce new concepts."}, {"letter": "C", "text": "List all the figures used."}, {"letter": "D", "text": "Review the key points discussed in the chapter."}], "answer": "D", "explanation": " The summary lists the key points such as the definition of computing, components of the computing system, software classifications, and computing operations, effectively reviewing the chapter.", "picked": null}, {"type": "question", "n": 54, "text": "Why has computer literacy become increasingly important in modern times?", "options": [{"letter": "A", "text": "Because computers are too expensive for the average person."}, {"letter": "B", "text": "Because reading and writing are no longer necessary."}, {"letter": "C", "text": "Because computers are only used in laboratories."}, {"letter": "D", "text": "Because globalization has reduced the barriers of distance between nations, largely due to advances in ICT."}], "answer": "D", "explanation": " As globalization has reduced the barriers of distance between nations and peoples, largely due to advances in ICT, having knowledge of the computer has become increasingly important.", "picked": null}, {"type": "question", "n": 55, "text": "Which of the following is a reason given in the document for why everyone should have knowledge of computing?", "options": [{"letter": "A", "text": "It makes a person more popular."}, {"letter": "B", "text": "It guarantees a high-paying job."}, {"letter": "C", "text": "It reveals profound perceptions about our brains, civilization, and environment."}, {"letter": "D", "text": "It is required by law."}], "answer": "C", "explanation": " The document explicitly states that learning about computing reveals profound perceptions and raises queries about the nature of our brains, our civilization, and our environment, making it one of the key reasons for learning computing.", "picked": null}, {"type": "question", "n": 56, "text": "What is the role of the message in communication operations?", "options": [{"letter": "A", "text": "To link the sending device to the receiving device."}, {"letter": "B", "text": "To initiate the communication request."}, {"letter": "C", "text": "To serve as the recipient of the transmission."}, {"letter": "D", "text": "To be the data/information to be sent or transmitted."}], "answer": "D", "explanation": " The message is defined as the data/information to be sent or transmitted, such as pictures, voice notes, or video clips, making it the content being communicated.", "picked": null}, {"type": "question", "n": 57, "text": "Which of the following fields is mentioned in the document as one that relies on computing?", "options": [{"letter": "A", "text": "Fishing"}, {"letter": "B", "text": "Retail sales"}, {"letter": "C", "text": "Manufacturing"}, {"letter": "D", "text": "Agriculture"}], "answer": "C", "explanation": " The text explicitly lists manufacturing as one of the many fields that rely on computing, along with transportation, communication, engineering, the military, and scientific research.", "picked": null}, {"type": "question", "n": 58, "text": "According to the document, a pen computer is an input tool used with pen-based computers to:", "options": [{"letter": "A", "text": "Print documents."}, {"letter": "B", "text": "Connect to the internet."}, {"letter": "C", "text": "Store files."}, {"letter": "D", "text": "Write on or point at a specific pad on the screen."}], "answer": "D", "explanation": " Pen computers are input tools that enable users of pen-based computers to write on or point at a specific pad on the screen.", "picked": null}, {"type": "question", "n": 59, "text": "Which of the following is NOT listed as a manufacturer of mainframe computers?", "options": [{"letter": "A", "text": "IBM"}, {"letter": "B", "text": "Apple"}, {"letter": "C", "text": "Univac"}, {"letter": "D", "text": "Burroughs"}], "answer": "B", "explanation": " Major manufacturers of mainframe computers include IBM, Burroughs, and Univac. Apple is not mentioned in this context.", "picked": null}, {"type": "question", "n": 60, "text": "The type of computing that involves using computers for accounting, desktop publishing, and word-processing is:", "options": [{"letter": "A", "text": "Distributed Computing"}, {"letter": "B", "text": "Personal Computing"}, {"letter": "C", "text": "Cloud Computing"}, {"letter": "D", "text": "Grid Computing"}], "answer": "B", "explanation": " Personal computing can be applied in accounting, desktop publishing, spreadsheet and database management and word-processing applications.", "picked": null}, {"type": "question", "n": 61, "text": "\"Debugging\" in relation to software is done when:", "options": [{"letter": "A", "text": "The computer is turned on."}, {"letter": "B", "text": "The software is being installed."}, {"letter": "C", "text": "The hardware has a fault."}, {"letter": "D", "text": "There is a problem."}], "answer": "D", "explanation": " The table comparing hardware and software states that debugging is done when there is a problem with the software.", "picked": null}, {"type": "question", "n": 62, "text": "Which of the following is NOT listed as an example of an application software?", "options": [{"letter": "A", "text": "A text editor"}, {"letter": "B", "text": "Microsoft Office"}, {"letter": "C", "text": "A database management system (MySQL)"}, {"letter": "D", "text": "An image viewer"}], "answer": "A", "explanation": " While a text editor can be an application, the document specifically lists an image viewer, Microsoft Office, and MySQL as examples of application software, while a text editor is mentioned as a utility included in system software.", "picked": null}, {"type": "question", "n": 63, "text": "How did the availability of automatic computers influence human problem-solving?", "options": [{"letter": "A", "text": "It made problem-solving more difficult."}, {"letter": "B", "text": "It made people forget how to solve problems manually."}, {"letter": "C", "text": "It significantly influenced how people approach problem solving and the types of problems they feel capable of addressing."}, {"letter": "D", "text": "It had no significant impact."}], "answer": "C", "explanation": " The availability of automatic computers has significantly influenced how people approach problem solving, as well as the types of problems they feel capable of addressing.", "picked": null}, {"type": "question", "n": 64, "text": "What does ICT stand for?", "options": [{"letter": "A", "text": "International Communication Technology"}, {"letter": "B", "text": "Information and Communication Technologies"}, {"letter": "C", "text": "Integrated Computing Tools"}, {"letter": "D", "text": "Information and Computer Technology"}], "answer": "B", "explanation": " ICT refers to the merging of computer technology and communication technology, which has led to the development of information and communication technologies.", "picked": null}, {"type": "question", "n": 65, "text": "Which of the following is a characteristic of a laptop computer?", "options": [{"letter": "A", "text": "It is used as a network server for a few dozen client systems."}, {"letter": "B", "text": "The keyboard is mounted flat on the system unit, and the screen conceals the system."}, {"letter": "C", "text": "It is the most powerful type of computer."}, {"letter": "D", "text": "It is designed to be used on a desk and is not portable."}], "answer": "B", "explanation": " Laptops are small type computers where the keyboard is mounted flat on the system unit, and the screen is utilized to conceal the system, allowing for portability.", "picked": null}, {"type": "question", "n": 66, "text": "Which of the following is the correct comparison between a micro-computer and a mainframe?", "options": [{"letter": "A", "text": "A micro-computer is more powerful than a mainframe."}, {"letter": "B", "text": "A mainframe is less expensive than a micro-computer."}, {"letter": "C", "text": "A micro-computer and a mainframe are the same."}, {"letter": "D", "text": "A micro-computer is designed for individual use, while a mainframe is for large organizations."}], "answer": "D", "explanation": " Microcomputers or personal computers are designed for individual use and are less powerful than mainframe computers, which are used by large organizations.", "picked": null}, {"type": "question", "n": 67, "text": "What is the primary function of a storage device?", "options": [{"letter": "A", "text": "To allow users to keep all kinds of information for future use."}, {"letter": "B", "text": "To display information."}, {"letter": "C", "text": "To process data."}, {"letter": "D", "text": "To send data over a network."}], "answer": "A", "explanation": " Storage devices are specifically used to retain various types of information like videos, audio files, documents, pictures, and raw data, ensuring users can access this information when needed in the future.", "picked": null}, {"type": "question", "n": 68, "text": "According to the document, which of the following is a component of the computing system?", "options": [{"letter": "A", "text": "The internet"}, {"letter": "B", "text": "The user"}, {"letter": "C", "text": "The software code only"}, {"letter": "D", "text": "The power supply"}], "answer": "B", "explanation": " The computing system is comprised of three key components: the user, the computer system, and the context in which the computer is utilised, making the user an essential element.", "picked": null}, {"type": "question", "n": 69, "text": "When a problem in software is not solved, what is the typical next step?", "options": [{"letter": "A", "text": "The user is trained."}, {"letter": "B", "text": "The software is reinstalled."}, {"letter": "C", "text": "The computer is turned off."}, {"letter": "D", "text": "The hardware is replaced."}], "answer": "B", "explanation": " The table states that if the problem is not solved, the software is reinstalled.", "picked": null}, {"type": "question", "n": 70, "text": "Which of the following is NOT an output device?", "options": [{"letter": "A", "text": "Speakers"}, {"letter": "B", "text": "Printer"}, {"letter": "C", "text": "Scanner"}, {"letter": "D", "text": "Monitor"}], "answer": "C", "explanation": " A scanner is an input device, while monitors, printers, and speakers are all listed as output devices.", "picked": null}, {"type": "question", "n": 71, "text": "An Electronic Organizer is a type of:", "options": [{"letter": "A", "text": "Supercomputer"}, {"letter": "B", "text": "Mainframe"}, {"letter": "C", "text": "Mid-range computer"}, {"letter": "D", "text": "Pocket PC"}], "answer": "D", "explanation": " The document mentions Electronic Organizers under the section on Pocket PCs, specifically as an electronic gadget used to manage schedules and save data.", "picked": null}, {"type": "question", "n": 72, "text": "Which of the following best describes the relationship between application software and system software?", "options": [{"letter": "A", "text": "Application software manages hardware, and system software performs user tasks."}, {"letter": "B", "text": "System software provides an environment for applications to run."}, {"letter": "C", "text": "They are independent and do not interact."}, {"letter": "D", "text": "Application software is a type of system software."}], "answer": "B", "explanation": " System software provides an environment in which the applications run, making the applications dependent on the system software to operate.", "picked": null}, {"type": "question", "n": 73, "text": "Which of the following is an example of communication operations?", "options": [{"letter": "A", "text": "Storing a file on a hard disk"}, {"letter": "B", "text": "Printing a document"}, {"letter": "C", "text": "Transferring data via Wi-Fi or LAN"}, {"letter": "D", "text": "Typing on a keyboard"}], "answer": "C", "explanation": " Communication operations involve the transfer of data, instructions, and information, and can be done through wireless means or via a communications channel, such as Wi-Fi or LAN.", "picked": null}, {"type": "question", "n": 74, "text": "Which of the following is NOT a type of computing mentioned in the document?", "options": [{"letter": "A", "text": "Grid Computing"}, {"letter": "B", "text": "Quantum Computing"}, {"letter": "C", "text": "Client-Server Computing"}, {"letter": "D", "text": "Cloud Computing"}], "answer": "B", "explanation": " The document lists Cloud Computing, Grid Computing, Distributed Computing, Cluster Computing, Personal Computing, Time-Sharing Computing, and Client-Server Computing, but does not mention Quantum Computing.", "picked": null}, {"type": "question", "n": 75, "text": "When a user gives instructions to a computer through devices like a keyboard or mouse, this is an example of which operation?", "options": [{"letter": "A", "text": "Storage operation"}, {"letter": "B", "text": "Processing operation"}, {"letter": "C", "text": "Input operation"}, {"letter": "D", "text": "Output operation"}], "answer": "C", "explanation": " Input operations are initiated by the input unit, which includes devices like the keyboard and mouse that users use to give instructions to the computer for processing.", "picked": null}, {"type": "question", "n": 76, "text": "What is the purpose of the Protocol in communication operations?", "options": [{"letter": "A", "text": "To govern the communication between the sender and the recipient."}, {"letter": "B", "text": "To provide power to the devices."}, {"letter": "C", "text": "To store the message."}, {"letter": "D", "text": "To display the message to the user."}], "answer": "A", "explanation": " The protocol is defined as the set of rules that govern the communication between the sender and the recipient.", "picked": null}, {"type": "question", "n": 77, "text": "A computer's power pack is considered a part of the:", "options": [{"letter": "A", "text": "Hardware"}, {"letter": "B", "text": "Application software"}, {"letter": "C", "text": "Software"}, {"letter": "D", "text": "System software"}], "answer": "A", "explanation": " The power pack is listed along with the casing, central processing unit, RAM, and hard disk as a physical, touchable part of the computer system, which classifies it as hardware.", "picked": null}, {"type": "question", "n": 78, "text": "What makes supercomputers different from other types of computers?", "options": [{"letter": "A", "text": "They are designed to be used by a single user at a time."}, {"letter": "B", "text": "They are the most powerful computers available and are designed to process massive amounts of information at high speed."}, {"letter": "C", "text": "They are designed for large organizations for managing huge amounts of input/output."}, {"letter": "D", "text": "They are portable and can be held in the hand."}], "answer": "B", "explanation": " A supercomputer refers to the most powerful computer currently available and is specifically designed to process massive amounts of information at a high speed for tasks like nuclear research and complex simulations.", "picked": null}, {"type": "question", "n": 79, "text": "Which of the following is NOT an example of a cloud computing service?", "options": [{"letter": "A", "text": "Microsoft OneDrive"}, {"letter": "B", "text": "Microsoft Office (the software suite)"}, {"letter": "C", "text": "Google Drive"}, {"letter": "D", "text": "Dropbox"}], "answer": "B", "explanation": " Google Drive, Dropbox, and Microsoft OneDrive are explicitly listed as cloud computing services, whereas Microsoft Office is given as an example of application software.", "picked": null}, {"type": "question", "n": 80, "text": "Which of the following is NOT a component of the CPU?", "options": [{"letter": "A", "text": "Random Access Memory (RAM)"}, {"letter": "B", "text": "Arithmetic and Logical Unit (ALU)"}, {"letter": "C", "text": "Control Unit (CU)"}, {"letter": "D", "text": "Bank of Registers"}], "answer": "A", "explanation": " The CPU includes the ALU, Control Unit, and the Bank of Registers. RAM is a separate memory component, not part of the CPU.", "picked": null}, {"type": "question", "n": 81, "text": "Which of the following is an example of a micro-computer's use?", "options": [{"letter": "A", "text": "Managing a large telecommunication company's network"}, {"letter": "B", "text": "Predicting nuclear chain reactions"}, {"letter": "C", "text": "Processing weather data from satellites"}, {"letter": "D", "text": "Being used in watches, clocks, and cameras"}], "answer": "D", "explanation": " The employment of microcomputers in watches, clocks, and cameras is a common practice, as stated in the document.", "picked": null}, {"type": "question", "n": 82, "text": "In the context of the computing environment, what external equipment is mentioned?", "options": [{"letter": "A", "text": "Network cables"}, {"letter": "B", "text": "Software applications"}, {"letter": "C", "text": "Programming languages"}, {"letter": "D", "text": "Voltage stabilizers and UPS"}], "answer": "D", "explanation": " The environment includes the building that houses the computer, users, and furniture, as well as additional equipment such as voltage stabilizers, UPS, fans, and air conditioners.", "picked": null}, {"type": "question", "n": 83, "text": "Which of the following is true about the use of computers in modern times?", "options": [{"letter": "A", "text": "They are only used for processing numerical data."}, {"letter": "B", "text": "They are only used in scientific laboratories."}, {"letter": "C", "text": "They are used in a wide range of fields including transportation, communication, and the military."}, {"letter": "D", "text": "They are too expensive for most businesses."}], "answer": "C", "explanation": " The text mentions that computing is used in a wide variety of fields, including transportation, manufacturing, communication, engineering, the military, and scientific research, among many others.", "picked": null}, {"type": "question", "n": 84, "text": "Which of the following is NOT a functional unit of a computer?", "options": [{"letter": "A", "text": "Central Processing Unit"}, {"letter": "B", "text": "Output Unit"}, {"letter": "C", "text": "Network Unit"}, {"letter": "D", "text": "Input Unit"}], "answer": "C", "explanation": " The functional units that carry out computing operations are the input unit, storage unit, output unit, and the Central Processing Unit (CPU), which houses the ALU and Control Unit, making a \"Network Unit\" not a primary functional unit.", "picked": null}, {"type": "question", "n": 85, "text": "Which of the following is an example of a device used for input operations?", "options": [{"letter": "A", "text": "Speakers"}, {"letter": "B", "text": "Monitor"}, {"letter": "C", "text": "Printer"}, {"letter": "D", "text": "Digital Camera"}], "answer": "D", "explanation": " A digital camera is included in the list of input devices, alongside keyboards, mice, scanners, microphones, and joysticks.", "picked": null}, {"type": "question", "n": 86, "text": "Which of the following is NOT true about the relationship between computers and the user?", "options": [{"letter": "A", "text": "The computer processes data to provide information to the user."}, {"letter": "B", "text": "The user is a key component of the computing system."}, {"letter": "C", "text": "Users are only computer engineers."}, {"letter": "D", "text": "Users give instructions to the computer."}], "answer": "C", "explanation": " The document clarifies that users of computers are the various types of employees who use them, including both seasoned users and newcomers, not just computer engineers.", "picked": null}, {"type": "question", "n": 87, "text": "Which of the following is NOT mentioned as a part of the computing environment?", "options": [{"letter": "A", "text": "The internet connection"}, {"letter": "B", "text": "Voltage stabilizers"}, {"letter": "C", "text": "The building"}, {"letter": "D", "text": "Air conditioners"}], "answer": "A", "explanation": " The computing environment includes the building, users, furniture, and equipment like voltage stabilizers, UPS, fans, and air conditioners. An internet connection is not listed as part of the physical environment.", "picked": null}, {"type": "question", "n": 88, "text": "What is the function of a communications channel/device?", "options": [{"letter": "A", "text": "To store the message"}, {"letter": "B", "text": "To provide power to the devices"}, {"letter": "C", "text": "To process data"}, {"letter": "D", "text": "To link the sending device to the receiving device"}], "answer": "D", "explanation": " A communications channel/device is the device that links the sending device to the receiving device via a communications channel.", "picked": null}, {"type": "question", "n": 89, "text": "Midrange computers are deployed as network servers when there are:", "options": [{"letter": "A", "text": "Hundreds of client systems."}, {"letter": "B", "text": "Only one client system."}, {"letter": "C", "text": "No client systems."}, {"letter": "D", "text": "Few to a few dozen client systems."}], "answer": "D", "explanation": " When there are few to a few dozen client systems, a midrange computer is deployed as a network server.", "picked": null}, {"type": "question", "n": 90, "text": "What is a common feature of PDAs as they evolved?", "options": [{"letter": "A", "text": "They evolved to become smartphones."}, {"letter": "B", "text": "They became less portable."}, {"letter": "C", "text": "They lost their ability to store data."}, {"letter": "D", "text": "They became more expensive."}], "answer": "A", "explanation": " The concept of PDAs has evolved to become smartphones, which are much more advanced and powerful handheld devices with similar functionalities.", "picked": null}, {"type": "question", "n": 91, "text": "Which of the following is NOT true regarding the comparison between system and application software?", "options": [{"letter": "A", "text": "Application software is compulsory for every computer."}, {"letter": "B", "text": "System software provides an environment for applications."}, {"letter": "C", "text": "Application software is dependent on system software."}, {"letter": "D", "text": "Each computer needs one system software."}], "answer": "A", "explanation": " According to the table, application software is optional, depending on the needs, while system software is compulsory. This makes the statement \"Application software is compulsory\" incorrect.", "picked": null}, {"type": "question", "n": 92, "text": "How did early computers differ from modern computers in terms of use?", "options": [{"letter": "A", "text": "They were smaller and cheaper."}, {"letter": "B", "text": "They could process multimedia data."}, {"letter": "C", "text": "They were used only by computer engineers in laboratories."}, {"letter": "D", "text": "They were commonly found in homes and schools."}], "answer": "C", "explanation": " Early computers were too large and expensive for the average person to own. Only computer engineers would be able to program them, and they were restricted to a few scientific institutes and laboratories.", "picked": null}, {"type": "question", "n": 93, "text": "What does the table comparing hardware and software indicate about their relationship?", "options": [{"letter": "A", "text": "Hardware is independent of software."}, {"letter": "B", "text": "They are interchangeable."}, {"letter": "C", "text": "Hardware cannot execute any task without the software."}, {"letter": "D", "text": "Software is more important than hardware."}], "answer": "C", "explanation": " The table states that hardware cannot execute any task without the software and software cannot be executed without the hardware, demonstrating their mutual dependence.", "picked": null}, {"type": "question", "n": 94, "text": "Which of the following is NOT listed as an application of grid computing?", "options": [{"letter": "A", "text": "Weather Forecasting"}, {"letter": "B", "text": "Web browsing"}, {"letter": "C", "text": "Healthcare"}, {"letter": "D", "text": "Scientific Research"}], "answer": "B", "explanation": " Web browsing is not listed as an application of grid computing. The applications listed include Scientific Research, High-performance computing, Data Analytics and Business Intelligence, Healthcare, Weather Forecasting, and Government and Defense.", "picked": null}, {"type": "question", "n": 95, "text": "What does the term \"all-purpose device\" refer to in the context of the 21st century?", "options": [{"letter": "A", "text": "A supercomputer"}, {"letter": "B", "text": "A mid-range computer"}, {"letter": "C", "text": "The computer"}, {"letter": "D", "text": "A mainframe"}], "answer": "C", "explanation": " The computer is quickly evolving into this 21st century's all-purpose device, indicating its widespread and versatile use.", "picked": null}, {"type": "question", "n": 96, "text": "According to the text, why are supercomputers particularly useful for nuclear research?", "options": [{"letter": "A", "text": "Because they can accurately predict what will occur during each millisecond of a nuclear chain reaction."}, {"letter": "B", "text": "Because they are small and portable."}, {"letter": "C", "text": "Because they are cheap and easy to use."}, {"letter": "D", "text": "Because they do not require specialized personnel to operate."}], "answer": "A", "explanation": " Supercomputers are particularly useful for scientific research, most especially in the field of nuclear research, where researchers need to accurately predict what will occur during each millisecond of a nuclear chain reaction.", "picked": null}, {"type": "question", "n": 97, "text": "The \"Control Unit\" in the CPU is responsible for:", "options": [{"letter": "A", "text": "Managing the flow of data and instructions within the CPU."}, {"letter": "B", "text": "Storing processed data."}, {"letter": "C", "text": "Performing calculations."}, {"letter": "D", "text": "Connecting to peripheral devices."}], "answer": "A", "explanation": " The Control Unit works with the ALU to carry out processing operations and is responsible for controlling the flow of data and instructions within the CPU.", "picked": null}, {"type": "question", "n": 98, "text": "Which of the following is NOT a way in which computing has impacted human life according to the document?", "options": [{"letter": "A", "text": "The development of ICT has transformed human activity"}, {"letter": "B", "text": "It has become integrated into nearly all aspects of daily life"}, {"letter": "C", "text": "It has eliminated the need for reading and writing"}, {"letter": "D", "text": "Improved problem-solving approaches"}], "answer": "C", "explanation": " While the document discusses how computing has impacted human life through problem-solving and ICT transformation, it does not state that it has eliminated the need for reading and writing; it actually states that literacy now includes computer literacy.", "picked": null}, {"type": "question", "n": 99, "text": "Which of the following is an example of a standalone program mentioned in the document?", "options": [{"letter": "A", "text": "Mac OS X"}, {"letter": "B", "text": "MySQL"}, {"letter": "C", "text": "An image viewer"}, {"letter": "D", "text": "Microsoft Office"}], "answer": "C", "explanation": " Application software can be a standalone program such as an image viewer, a set of programs like a spreadsheet, or a group of independent programs like Microsoft Office.", "picked": null}, {"type": "question", "n": 100, "text": "What does the table comparing system software and application software indicate about their dependency?", "options": [{"letter": "A", "text": "Both are completely independent."}, {"letter": "B", "text": "Neither requires the other to function."}, {"letter": "C", "text": "System software is dependent on application software."}, {"letter": "D", "text": "Application software is dependent on system software."}], "answer": "D", "explanation": " The table shows that application software is dependent on the system software and cannot operate without it, while system software provides the environment for applications to run.", "picked": null}, {"type": "question", "n": 101, "text": "Which of the following is a characteristic of a microcomputer?", "options": [{"letter": "A", "text": "It is found in homes, offices, and classrooms."}, {"letter": "B", "text": "It is used exclusively for scientific research."}, {"letter": "C", "text": "It is more expensive than a supercomputer."}, {"letter": "D", "text": "It is more powerful than a mainframe."}], "answer": "A", "explanation": " Microcomputers or personal computers are designed for individual use and are found in homes, offices, and classrooms because they are less expensive and less powerful than mainframe computers or supercomputers.", "picked": null}, {"type": "question", "n": 102, "text": "What is the main reason for the spread of computer use in various fields?", "options": [{"letter": "A", "text": "Because of the development of information and communication technologies (ICT)."}, {"letter": "B", "text": "Because people are forced to use them."}, {"letter": "C", "text": "Because they are easy to operate."}, {"letter": "D", "text": "Because computers are now smaller and cheaper."}], "answer": "A", "explanation": " ICT, which refers to the merging of computer technology and communication technology, has led to the development of technologies that have transformed virtually every aspect of human activity, leading to the spread of computer use.", "picked": null}, {"type": "question", "n": 103, "text": "What is the main difference between the hardware and software, according to the table?", "options": [{"letter": "A", "text": "Hardware is dependent on software, but not the other way around."}, {"letter": "B", "text": "Software is replaced when there is a fault, hardware is repaired."}, {"letter": "C", "text": "Software is more important for the computer's function."}, {"letter": "D", "text": "Hardware can be touched, while software cannot."}], "answer": "D", "explanation": " The table compares hardware and software and highlights that hardware contains the physical parts of the computer system which can be touched, while software is a set of program instructions which cannot.", "picked": null}, {"type": "question", "n": 104, "text": "What type of computing is used when several computers on a network are connected to solve complex tasks by creating better speed and data integrity?", "options": [{"letter": "A", "text": "Cloud Computing"}, {"letter": "B", "text": "Distributed Computing"}, {"letter": "C", "text": "Cluster Computing"}, {"letter": "D", "text": "Grid Computing"}], "answer": "C", "explanation": " Cluster computing can be applied in solving very complex assignments by creating better speed of computation and increased data integrity, by connecting several computers on a network.", "picked": null}, {"type": "question", "n": 105, "text": "The term \"ICT\" signifies the:", "options": [{"letter": "A", "text": "Use of computers for scientific research."}, {"letter": "B", "text": "Improvement of mental ability through computing."}, {"letter": "C", "text": "Integration of computer technology into all aspects of daily life."}, {"letter": "D", "text": "Merging of computer technology and communication technology."}], "answer": "D", "explanation": " ICT, which refers to the merging of computer technology and communication technology, has led to the development of information and communication technologies.", "picked": null}, {"type": "question", "n": 106, "text": "Which of the following is an example of a \"Midrange\" computer use?", "options": [{"letter": "A", "text": "For nuclear research and simulations."}, {"letter": "B", "text": "As a server for a small network of client systems."}, {"letter": "C", "text": "For managing the databases of a large financial institution."}, {"letter": "D", "text": "As a personal device for an individual user."}], "answer": "B", "explanation": " When there are few to a few dozen client systems, a midrange computer is deployed as a network server.", "picked": null}, {"type": "question", "n": 107, "text": "The five main operations in computing are input, processing, output, storage, and:", "options": [{"letter": "A", "text": "Visualization"}, {"letter": "B", "text": "Digitization"}, {"letter": "C", "text": "Communication"}, {"letter": "D", "text": "Calculation"}], "answer": "C", "explanation": " Five main operations exist in computing, and these include input, processing, output, storage and communication operations.", "picked": null}, {"type": "question", "n": 108, "text": "Which of the following is an example of a field where grid computing is applied to simulate nuclear explosions or model the human genome?", "options": [{"letter": "A", "text": "Healthcare"}, {"letter": "B", "text": "Scientific Research"}, {"letter": "C", "text": "Government and Defense"}, {"letter": "D", "text": "Weather Forecasting"}], "answer": "B", "explanation": " Grid computing is greatly applied in scientific research to simulate the behaviour of a nuclear explosion and to model the human genome, making it the correct field for these applications.", "picked": null}, {"type": "question", "n": 109, "text": "Which of the following best describes the difference between data and information in the context of computing operations?", "options": [{"letter": "A", "text": "Data is only numbers, and information is only text."}, {"letter": "B", "text": "Data is processed, and information is raw input."}, {"letter": "C", "text": "Data is raw input, and information is the processed result."}, {"letter": "D", "text": "Data and information are the same."}], "answer": "C", "explanation": " The output unit gives information about what has been processed to the user, implying that input data is processed by the CPU to become meaningful information.", "picked": null}, {"type": "question", "n": 110, "text": "Which of the following is NOT a component needed for communication?", "options": [{"letter": "A", "text": "Protocol"}, {"letter": "B", "text": "Recipient"}, {"letter": "C", "text": "Memory"}, {"letter": "D", "text": "Sender"}], "answer": "C", "explanation": " For communication to take place successfully, the components needed are the sender, the message, the receiver, a communications channel/device, and the protocol. Memory is not listed as a component.", "picked": null}, {"type": "question", "n": 111, "text": "Which of the following statements is true about the hardware and software comparison?", "options": [{"letter": "A", "text": "Software is repaired when there is a fault."}, {"letter": "B", "text": "Hardware is set of program instructions."}, {"letter": "C", "text": "Hardware can be touched."}, {"letter": "D", "text": "Software contains the physical parts of the computer."}], "answer": "C", "explanation": " The table comparing hardware and software states that hardware contains the physical parts of the computer system and can be touched.", "picked": null}, {"type": "question", "n": 112, "text": "Which of the following is a type of computing used to analyze large volumes of data for business decision-making?", "options": [{"letter": "A", "text": "Personal Computing"}, {"letter": "B", "text": "Time-Sharing Computing"}, {"letter": "C", "text": "Grid Computing"}, {"letter": "D", "text": "Client-Server Computing"}], "answer": "C", "explanation": " Grid computing can be used in the business world to process large volumes of data, and this can be done in real-time to analyze sales, customer behaviour, or market trends for better business decisions.", "picked": null}, {"type": "question", "n": 113, "text": "Which of the following describes the traditional purpose of a Personal Digital Assistant (PDA)?", "options": [{"letter": "A", "text": "To act as a personal organizer."}, {"letter": "B", "text": "To be a mainframe computer."}, {"letter": "C", "text": "To serve as a server for a network."}, {"letter": "D", "text": "To be used as a supercomputer."}], "answer": "A", "explanation": " PDAs were initially used as personal organizers, but their usage has now expanded to include features such as mobile phone capabilities, internet connectivity, GPS navigation, and multimedia support.", "picked": null}, {"type": "question", "n": 114, "text": "Which of the following is a key component of a computing system?", "options": [{"letter": "A", "text": "The programming language used"}, {"letter": "B", "text": "The age of the user"}, {"letter": "C", "text": "The brand of the computer"}, {"letter": "D", "text": "The context in which the computer is utilized"}], "answer": "D", "explanation": " The computing system is comprised of three key components: the user, the computer system, and the context in which the computer is utilized.", "picked": null}, {"type": "question", "n": 115, "text": "What is the role of the Operating System in relation to application software?", "options": [{"letter": "A", "text": "It is dependent on the application software."}, {"letter": "B", "text": "It is an example of application software."}, {"letter": "C", "text": "It performs specific tasks like word processing."}, {"letter": "D", "text": "It provides an environment for application software to run."}], "answer": "D", "explanation": " System software, such as an OS, provides an environment in which the application software runs. Applications are dependent on the system software to operate.", "picked": null}, {"type": "question", "n": 116, "text": "Which of the following is NOT a characteristic of grid computing?", "options": [{"letter": "A", "text": "It accomplishes a particular assignment that is difficult for one machine."}, {"letter": "B", "text": "The resources are in diverse geographical locations."}, {"letter": "C", "text": "It is limited to use in the healthcare sector."}, {"letter": "D", "text": "It uses a combination of several computer resources."}], "answer": "C", "explanation": " Grid computing has various applications including Scientific Research, High-performance computing, Data Analytics, Healthcare, Weather Forecasting, and Government and Defense, so it is not limited to just one sector.", "picked": null}, {"type": "question", "n": 117, "text": "According to the document, what does \"computing\" require?", "options": [{"letter": "A", "text": "An external power source"}, {"letter": "B", "text": "The use of a computer"}, {"letter": "C", "text": "An internet connection"}, {"letter": "D", "text": "A programming language"}], "answer": "B", "explanation": " For computing to take place, computer(s) is vital. No computing can be carried out without a computer.", "picked": null}, {"type": "question", "n": 118, "text": "Which of the following is an example of a pen-based computer?", "options": [{"letter": "A", "text": "A supercomputer"}, {"letter": "B", "text": "A personal digital assistant (PDA)"}, {"letter": "C", "text": "A mainframe"}, {"letter": "D", "text": "A mid-range server"}], "answer": "B", "explanation": " Pen computers are input tools that enable users of pen-based computers, including personal digital assistants (PDAs), to write on or point at a specific pad on the screen.", "picked": null}, {"type": "question", "n": 119, "text": "Which of the following is NOT an example of an input device according to the document?", "options": [{"letter": "A", "text": "Projector"}, {"letter": "B", "text": "Joystick"}, {"letter": "C", "text": "Scanner"}, {"letter": "D", "text": "Microphone"}], "answer": "A", "explanation": " A projector is listed as an output device, while scanners, microphones, and joysticks are all listed as input devices.", "picked": null}, {"type": "question", "n": 120, "text": "What is the main advantage of having a computer system?", "options": [{"letter": "A", "text": "It can be used to solve any problem instantly."}, {"letter": "B", "text": "It can function without any user interaction."}, {"letter": "C", "text": "It enhances the user's ability to process and store information."}, {"letter": "D", "text": "It eliminates the need for any other form of technology."}], "answer": "C", "explanation": " The entire purpose of a computing system is to process data (input) and produce meaningful results (output) for the user, enhancing the user's ability to process and store information.", "picked": null}, {"type": "question", "n": 121, "text": "Which of the following is NOT stated as a way grid computing is applied in the government and defense sector?", "options": [{"letter": "A", "text": "To process satellite images."}, {"letter": "B", "text": "To develop new video games."}, {"letter": "C", "text": "To analyze huge amounts of data."}, {"letter": "D", "text": "To support decision-making and operations."}], "answer": "B", "explanation": " In government and defence, grid computing is applied to process and analyze huge amounts of data, such as satellite images, to support decision-making and operations, not to develop video games.", "picked": null}, {"type": "question", "n": 122, "text": "What is the primary role of application software?", "options": [{"letter": "A", "text": "To control the hardware components of a computer."}, {"letter": "B", "text": "To manage the computer's memory."}, {"letter": "C", "text": "To provide a user-friendly interface for the user."}, {"letter": "D", "text": "To carry out particular tasks beyond the mere operation of the computer system."}], "answer": "D", "explanation": " Application software is intended to carry out particular tasks beyond the mere operation of the computer system, such as word processing or spreadsheet management.", "picked": null}, {"type": "question", "n": 123, "text": "Which of the following describes the relationship between the computer system and the user?", "options": [{"letter": "A", "text": "The user is only needed for maintenance."}, {"letter": "B", "text": "The user is an active component of the computing system."}, {"letter": "C", "text": "The user is a passive recipient of information."}, {"letter": "D", "text": "The user has no effect on the computing system."}], "answer": "B", "explanation": " The computing system is comprised of the user, the computer system, and the context, making the user an active component.", "picked": null}, {"type": "question", "n": 124, "text": "Which of the following is NOT an example of a communication channel mentioned in the document?", "options": [{"letter": "A", "text": "USB"}, {"letter": "B", "text": "Wi-Fi"}, {"letter": "C", "text": "Internet"}, {"letter": "D", "text": "LAN"}], "answer": "A", "explanation": " A communications channel/device links the sending device to the receiving device via a communications channel, with Wi-Fi and LAN given as examples. USB is a connection method but is not specifically listed as a communications channel in this context.", "picked": null}, {"type": "question", "n": 125, "text": "Which of the following is an example of a system software's utility?", "options": [{"letter": "A", "text": "A database management system"}, {"letter": "B", "text": "A word processor"}, {"letter": "C", "text": "An image viewer"}, {"letter": "D", "text": "A file manager"}], "answer": "D", "explanation": " System software typically includes essential utilities such as disk formatting tools, text editors, and file managers, along with the operating system.", "picked": null}, {"type": "question", "n": 126, "text": "Which of the following is NOT a classification of software mentioned in the document?", "options": [{"letter": "A", "text": "Utility software"}, {"letter": "B", "text": "All of the above are mentioned."}, {"letter": "C", "text": "System software"}, {"letter": "D", "text": "Application software"}], "answer": "A", "explanation": " The two primary classifications of software mentioned are system software and application software. Although utilities are part of system software, \"Utility software\" is not listed as a primary classification.", "picked": null}, {"type": "question", "n": 127, "text": "Which of the following is an example of a field where computing is NOT mentioned as being used?", "options": [{"letter": "A", "text": "Social sciences"}, {"letter": "B", "text": "Air travel"}, {"letter": "C", "text": "Retail sales"}, {"letter": "D", "text": "Extractive industries"}], "answer": "C", "explanation": " The text mentions transportation, manufacturing, communication, engineering, the military, scientific research, space exploration, financial institutions, air travel, social sciences, humanities, and the extractive industries. Retail sales are not explicitly listed.", "picked": null}, {"type": "question", "n": 128, "text": "Which of the following is NOT a reason why learning about computing is important?", "options": [{"letter": "A", "text": "It guarantees a high salary."}, {"letter": "B", "text": "It is integrated into nearly all aspects of daily life."}, {"letter": "C", "text": "It reveals profound perceptions about our brains and society."}, {"letter": "D", "text": "It is the driving force behind current technologies."}], "answer": "A", "explanation": " The text mentions that computing is the driving force behind technologies and reveals profound perceptions about our brains and society. It does not state that it guarantees a high salary.", "picked": null}, {"type": "question", "n": 129, "text": "Which of the following is NOT a type of personal computer mentioned?", "options": [{"letter": "A", "text": "Desktop"}, {"letter": "B", "text": "Server"}, {"letter": "C", "text": "Laptop"}, {"letter": "D", "text": "Tablet"}], "answer": "B", "explanation": " A server is not classified as a personal computer. The text mentions Desktop and Tower units, Laptops, and Pocket PCs like tablets.", "picked": null}, {"type": "question", "n": 130, "text": "What is the primary difference between mainframe and supercomputers?", "options": [{"letter": "A", "text": "They are the same type of computer."}, {"letter": "B", "text": "Mainframes are used for individual use."}, {"letter": "C", "text": "Supercomputers are more powerful than mainframes."}, {"letter": "D", "text": "Mainframes are more powerful than supercomputers."}], "answer": "C", "explanation": " A supercomputer refers to the most powerful computer that is currently available, while a mainframe is currently the largest type of computer in common use but is less powerful than a supercomputer.", "picked": null}]}];
+const PASSWORD_HASHES = ["02e0f75c0544691e279821b7f6ffe366f913db7d9621db5d6fb86ccbd183f886", "08687f0e8b9a6c18eb8c12d0b12ff4ff96cb3a584b0ed462890852576aa7cb9c", "116d1f952cb474ed5b32ac3a064cec7c0e3e82fa947f0de0c90391f685b08467", "11eead74630e52fa106ee1ae50722dfcd9e1d0335bd396dad8f7589d39671d37", "11f951d98d9a29eeb30c6953dc70b582c0742afdbb8a1443e01f2550768d1336", "1268852e0cab0067a974be2199aaf584aba323de1a608ebc860843d317c9f152", "139d16977afd1c16d89db30b8d23fdd120f5787535f1201fef2b393f4dee8291", "13d1477fd10d498d2c3070896f30066368430f00e18e10c498940ecd2d065032", "1556e512a6fcf4be24a1f6b13f62ea3cec6ac3fc8f2a78edfb111c3105a9ed0a", "15a732756fcdb3f1e3cfd10eb2e4b040db0b75264b58158a970701377cf220d3", "18375b326b804200351dd9ca8e05a35f9fc4111dbc7f47d841abb6ecdc1c1136", "1900c03d43487719c389eba540c486396862434ed4ecd5bbfc41583d3ed1c10e", "1919e31966fc252e189fd3cd86e689528e4e68e53940c06dd05060fda900ea90", "1c9c8c5cc1616d100845a156e9cd05abd016a70d6a03cd550bcd13d9af26f4da", "1de3b5cdf1e21229c32d3c23521fb1be7288c2ebe86c3456d9a5472622c00378", "21e09d4d637bc1b34efbab544eedfd7b33082f7096b8573f31ba5ae6c14bc3ee", "2272aac7f3febd82b72a6ae9827bfe4555b1dfc36c3de01a4e7c7d020f5e5a6c", "229b2c9a8cc3add79e098389d6d994b04ab8fe9b545de9a1225a82686426146d", "2ac8884981248d4ec37f83926b8260c3090ef0608fca4b1a1ea67f04035e6e75", "2f1a0d49dae6557526c8f39d20319d594791d447c12fee4daaf318405e9b1938", "2f2423700d645713dd1280586119149a52ba503a296f32cb848e37c8fc4f344f", "3210ee71a5e2d0aaf53d6c495a905e26bc107408ad93f26cabcb7e1bd98e6803", "32938f0bf39a0c452ffe18305fce1d5f7088ca1b23cc9675d79c5d3461b67ab1", "38161242742b512badde74045258fef0e17001032d1a5af98511a394009a657e", "3c6d8d0423c704ae268c0781f83818e58e9f8cd1225fd0dbf4826757698b185c", "3d68dd841685a7d202e5d3ee4400c5021abbbb5af9acfb8a6e1ff46bb1a1caab", "41056c8b467aca46c4182c1442a63551677a74487626dce05b5a9b2a07c69d29", "416cd38340f1c21838d98088bcd3eb8d3285123acfbe3695424270e31a16efea", "420265f7fdbc16e9e0ebdd86b884d7e8703a59a6a3a9dcc35fc2fbda27c91402", "4208aaf31c82ee586b4cd85ca37beb8fe5ed64432d33c4bb5babae406d4e8367", "427be2af40230d5f62c804b4b0b76ae4624a4b21922b860e1bba487f9e539f69", "4c4b679a8c17c3a1e1626d0c71de388a055f86a935c938afd4098d8624e082fd", "500c373fb426771f480572988e6886593c35eb4522f61bbc151a7ad1b9752a60", "53188125cbf7c0c07d85ecf5d1dcb961cb0b7d70cc80165ab730978381772c81", "5561451ca3b760eda92ca2d0fa102cb61479f2cfa41c87a846b4510b08d8c16d", "55cf8a50d1fb0de7badcd9e9451fa29df824c487c9d2e27f18d5e2f4c02f415d", "5b3d70ddb98203be864a1da6a53ab166fe6c7be60c855a14b3bff4ca64515589", "5cf1b8f90f3e756778db0e5aae8e19fc00d7b8ccbe70aad6723d127cbdac72be", "5cffb82bc6d078414aaf0a650d084cfe0327affab74c3aa1e5cc545f6b7c1c69", "5dfb42307784790bf6e7272c7de4d76ba0527b9998fc5ebfcdc7dd63f672b970", "6026d6f7d46b6ea57a42f064ab78a1dafe7dbe6af0831848791aaf7330f3cda0", "61bf7b9d99b27193a5290511a6c665003543c2b9432a5c418940427fa9ed18b1", "6248670ac3fceeb19d5ae4408a10534db2a219cfa376982f71701841bf6f49c9", "642f0c0adee715fa02920cd4edb16b8a358a6eb02d7e98c48a8af45b3dde4caf", "645b34ab66c86a3d456bf055dcfe0ada09ecd921ffcf60b57250dd770c5669ad", "69e615af868d7a7b5adeb1a97ee9886cff79b4dc241d956c6e800c8fbf6ebe2e", "6dcc7b722c80c12888dd0a24b1e1e85aa4fd07c4fcbcf2f3865ca66137a5bf47", "71acc04a5f9eb09f808efc46b1508003bce835379f90f7af3276f32c92e14890", "72347395052e7729be87fbdad9438c23451ca09d9b65a8d95f0658ede41ff1c6", "728ae719a38a22029d8d66137bd48a3b9e2552bd113a0a167c571ee95b5a0310", "761675750a2dd529626c82b6204ff7a1bcc9cfafadb6f65719094a3d85201d7d", "774e0b16ce7f54cdff1458e61fe5dcd60d626fb010d266a5360fe370b292d066", "77c789ee64aebf57f9507e89724dc39c7bf7f86796e26a27e556b7d19c3dbb33", "77f5013165314e3bfcf24d522b8737074af4f5f3f2ed25f3b71ce439dc8ea308", "7b9c0072741b31d16240eda9fc43bc65ffbd561c74fb56f5ce219d3dff341fef", "7c83d97f43e1abadab13b08500ba4f6323fa1ba9f23a91eb27d326ab69d75ed2", "7eb29ee81b3dcc56a803d583fe01269a12b98a63841410aa1bc5c15c0bf33f0b", "7ebb925625ea2ce7dfa14cdb6841634fb2bea835b918c3126614d370beff4b5e", "83e7adf74d3e1220a2828a3453cfacf2e4a388b58513eca3f54e9e7939e049f2", "897cad2f384922d414d170252c03fcf025fb55b25ef999d87dd9d48f1d3c056c", "897f328f97d3a71f67da8194909860036c49c0bee6236777a70687586a9ac6ac", "8bd930be0c6262cd93fe1f33f582069a474ae951eef1b38b23de59f2570b2762", "8c09e056d072fcd1217d1c6979360db75332952de8fa6d46789cb4e0c47018fe", "8fd8fe8e77a3c9d3cb47d456266917df1700950aac702afc2a22e048bdb3bed0", "904f43069ac9c9e16a3231d6528dd4fd60ab639a63fe4a7dccc2e67b87d4a606", "94909d3033fb55a8ddcbcac4b07bc544a9a2a969ccc594ede7d2904d9c74f6b6", "950c1d516834de01daaf4f90bbfa6e51a7506aa665d6be9b8f91db7b18dcf15d", "956219109c4bf5eecd9477a9487fbd78a5d71a5f28a132cc1bc694439b792086", "97078cae3e6895768db87a8c5c0d9ef328a6598b6a32cfe82dcf6584bea9f641", "97dcf4e0247d2fdcf7d090fe4f199cd0c5a1668aab1b0caef8f5e10c58f14a80", "98f7a5df24b7ad25b5bb380392a51c419e57e9bfe3be5905da1b5ff411e31983", "9961929806352deecde6be6008c6f5ce04f12c28f1e4663d0491180c987f3c20", "9ac59cfbeaa8a6fa7398bcc6c210c7ec81ee8c0a40e0b9669b5af5124057fa63", "9af620011792aed923dc3d0f31ff64e90c7039bb765abc2e5bcc8f297cefc5a3", "9b4422e26d51ba1acbcc917bea226120cc684c419b33e9c330cccf040c8cbc7a", "9b562553df58b8a7689511b4ceb758da0ab3a289a7869c95e2f9f79bdce0bb82", "9bfc40c1498ae972b11d0ba2d184a41f55b1cd757bd50d7399ea05243f6361d3", "a18c8b49dfa0796539dd063a8150a77697e96b31ebb6a5c18942217645e0762b", "a1ecaf819404458062bdb4bdc988c1b6798f1816adb6e33bf6d0745f5f874cf7", "a84dda48e42b24a6aee515ed1e4d67077e2f8378fd8113efe730b958d6cd2133", "a85858b3e965a5ab864c9da14cd1a73f03e54b7fe8145dec8eb1f0a07018a71f", "acfd16e45bebf98a8181efcb2e0352a1d5b1d2ab9d5bf6c6dd4bd2a87adeb092", "ae33fbffed55473836bd0b6701680476fe988dc8486b43eca373b7cf1c08fc8a", "b198fcaba20a03dce9b622e84ded13a11266d7282aa9983ce54a844650ea596a", "b6d95605d58e5e7948399a4d5c9cb9493814fe3e9a9c6c2310e05546b928d419", "b9a0a358b4ed46f1d111c560e71fbb60fa4ee5abb75ea69f6313c50b666218c4", "bccfdebbaa44f4ec5af10c85ba30d4a44d271affeccc9aa3a3b746b26ab07a65", "be3e3f2b75435ca9e3190579d45f67ae66e19b21f8ee42ede4a58f44dafd546d", "bf539a85850c5ebeb53ce46148cf7434d04a20c0f94e22b72d8cfcfaab3b00ed", "c011134d8221108b1ba4944dfde5463812604e985365d046337bb1e91b90a9d9", "c03bf0b1a623a8e88a2d8014df747396480cbf4cef55431844379af61c290f4f", "c1a6dfb7ab68534115d6373f06cc8dfc86b49d4b878d7940d7a394ba8d8a91e0", "c22c154735ae00189a3e9599981cf78baa8e5a959f0a70677af124a7dedd9443", "c423beac8cbc9e322930faaede4e5a8c718f21723ecba896ed30b31fe2b60547", "caa8bc8bff8812ecab47e66d3332e9222e1a9157c711acf741f5efc80bad3951", "d0b4eefa24dd30fadd0e726a4619b59de3276c65385cfb7103dafacc94baca10", "d2ab76a3da95e03fb9a0a6b86fd13cd32255a783232fbc7e88ba9ec2bbfdaa79", "d80a0a1391dcab97313db865f843f2229303b0aa7ea04cf57d0bfbbbdb766de8", "db9992a50f39e904ddbeac363b0a3eef67fd81b27be8f31f4742ea36d0942415", "dc76e7a5594cc007c290f1e58af6aefcaf9c787905165cca5ff4725cc7d52c0f", "dffa03476ed64eeebb74f891d30d2ae1f7473692da1b99ccb0d8dfc5f3bfdc06", "e136ebd6e85e334c2ff99cc23e047429975afd2d595b2ff1c31e4e7db81c3abd", "e764582d61abd54fe29ef68d9f8f3c364de00031bd37912d9d7469dd4caf3a51", "eb664634d83791a1764257f9b9ebdf9019ba85d90b8154dc275843cd90b7cef3", "ebd73b8641357b0a50a27c655a2d12d5a4493b75e5e618c4d8b1746cd8faf842", "ecaf849d4138058c53372535ca1c98a59276098fbb5ef94866ded99086b5ff7f", "f1b4460f4875f5d0dd5f65b5faad3d2d09c1e989ecd24be0e43ff4726ed6512b", "f21380b7a21e84a68104261e75d1faae7275ef5ba403bd8807bc798d238d062d", "f3682e94b38845105ea16e9c19fa4a50de8549d59ee8d63912d9a09bc1f28723", "f5671b0c7e1f431ddc5e62d55bf5b72128874a69e3cf4e25c160b9d88df43fe0", "f64289083d426f8d877a378673ef87861863ef635d54b00412315974958c62f6", "f7065c962616dfa7f3be9f25de6e2d65eb10579bce1e60d52203d36d661d4605", "fb6de062000e536fd6bf6baa5b7e49ae4abab5c3a4678bce36cece3a4c193801", "fe2bd117965405ed1500b6b14a08a1adc35479d85b19aa7a3dfec5606d46e714"];
+
+const tocView = document.getElementById("toc-view");
+const tocList = document.getElementById("toc-list");
+const topicView = document.getElementById("topic-view");
+
+function escapeHtml(s){
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function topicProgress(topic){
+  const qs = topic.items.filter(it => it.type === "question");
+  const answered = qs.filter(q => q.picked !== null).length;
+  return { answered, total: qs.length };
+}
+
+// --- Table of contents ----------------------------------------------------
+function renderToc(){
+  tocList.innerHTML = "";
+  TOPICS.forEach((topic, idx) => {
+    const { answered, total } = topicProgress(topic);
+    const done = total > 0 && answered === total;
+    const pct = total ? Math.round((answered / total) * 100) : 0;
+
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "toc-card" + (done ? " done" : "");
+    card.innerHTML = `
+      <div class="toc-num">${done ? "&#10003;" : String(idx + 1).padStart(2, "0")}</div>
+      <div class="toc-body">
+        <div class="toc-title">${escapeHtml(topic.title)}</div>
+        ${topic.subtitle ? `<div class="toc-subtitle">${escapeHtml(topic.subtitle)}</div>` : ""}
+        <div class="toc-progress-row">
+          <div class="toc-bar"><div class="toc-bar-fill" style="width:${pct}%"></div></div>
+          <div class="toc-count">${answered}/${total} answered</div>
+        </div>
+      </div>
+      <div class="toc-chevron">&#8250;</div>
+    `;
+    card.addEventListener("click", () => { location.hash = "topic-" + idx; });
+    tocList.appendChild(card);
+  });
+}
+
+// --- Single-topic view ------------------------------------------------------
+function renderTopic(idx){
+  const topic = TOPICS[idx];
+  if (!topic) { location.hash = ""; return; }
+  const { answered, total } = topicProgress(topic);
+
+  topicView.innerHTML = `
+    <div class="back-row">
+      <button type="button" class="back-btn" id="back-btn">&#8592; All topics</button>
+    </div>
+    <div class="topic-header">
+      <div class="topic-title">${escapeHtml(topic.title)}</div>
+      ${topic.subtitle ? `<div class="topic-subtitle">${escapeHtml(topic.subtitle)}</div>` : ""}
+    </div>
+    <div class="topic-meta" id="topic-meta">${total} questions &nbsp;&bull;&nbsp; ${answered}/${total} answered</div>
+    <div class="search-wrap">
+      <span class="search-icon">&#128269;</span>
+      <input id="search" type="text" placeholder="Search within this topic…" autocomplete="off">
+    </div>
+    <div id="question-list"></div>
+    <div id="no-results" class="no-results">No questions match your search.</div>
+  `;
+
+  document.getElementById("back-btn").addEventListener("click", () => { location.hash = ""; });
+
+  const list = document.getElementById("question-list");
+  const meta = document.getElementById("topic-meta");
+  const searchInput = document.getElementById("search");
+  const noResults = document.getElementById("no-results");
+
+  function refreshMeta(){
+    const p = topicProgress(topic);
+    meta.textContent = `${p.total} questions • ${p.answered}/${p.total} answered`;
+  }
+
+  topic.items.forEach(item => {
+    if (item.type === "subsection"){
+      const label = document.createElement("div");
+      label.className = "subsection-title";
+      label.textContent = item.text;
+      list.appendChild(label);
+      return;
+    }
+
+    const q = item;
+    const card = document.createElement("div");
+    card.className = "card" + (q.picked !== null ? " answered" : "");
+    card.dataset.search = (q.text + " " + q.options.map(o=>o.text).join(" ")).toLowerCase();
+
+    const optsHtml = q.options.map(o =>
+      `<div class="opt" data-letter="${o.letter}"><span class="letter">${o.letter}.</span><span>${escapeHtml(o.text)}</span></div>`
+    ).join("");
+
+    card.innerHTML = `
+      <div class="q-row">
+        <div class="q-num">${q.n}</div>
+        <div class="q-text">${escapeHtml(q.text)}</div>
+      </div>
+      <div class="options">${optsHtml}</div>
+      <div class="feedback"></div>
+      <div class="explain"></div>
+    `;
+
+    const feedback = card.querySelector(".feedback");
+    const explain = card.querySelector(".explain");
+
+    function paintAnswered(){
+      const picked = q.picked;
+      const isCorrect = picked === q.answer;
+      const pickedEl = card.querySelector(`.opt[data-letter="${picked}"]`);
+      if (pickedEl) pickedEl.classList.add(isCorrect ? "pick-correct" : "pick-wrong");
+      if (!isCorrect){
+        const correctEl = card.querySelector(`.opt[data-letter="${q.answer}"]`);
+        if (correctEl) correctEl.classList.add("reveal-correct");
+      }
+      feedback.textContent = isCorrect ? "Correct!" : `Incorrect — correct answer is ${q.answer}.`;
+      feedback.classList.add("show", isCorrect ? "correct" : "wrong");
+      if (q.explanation){
+        explain.textContent = q.explanation;
+        explain.classList.add("show");
+      }
+    }
+
+    if (q.picked !== null) paintAnswered();
+
+    card.querySelectorAll(".opt").forEach(optEl => {
+      optEl.addEventListener("click", () => {
+        if (card.classList.contains("answered")) return;
+        card.classList.add("answered");
+        q.picked = optEl.dataset.letter;
+        paintAnswered();
+        refreshMeta();
+      });
+    });
+
+    list.appendChild(card);
+  });
+
+  function applyFilter(){
+    const term = searchInput.value.trim().toLowerCase();
+    const cards = list.querySelectorAll(".card");
+    const labels = list.querySelectorAll(".subsection-title");
+    let anyVisible = false;
+
+    cards.forEach(card => {
+      const match = !term || card.dataset.search.includes(term);
+      card.classList.toggle("hidden", !match);
+      if (match) anyVisible = true;
+    });
+
+    labels.forEach(label => {
+      let el = label.nextElementSibling;
+      let show = false;
+      while (el && !el.classList.contains("subsection-title")){
+        if (el.classList.contains("card") && !el.classList.contains("hidden")){ show = true; break; }
+        el = el.nextElementSibling;
+      }
+      label.style.display = show ? "" : "none";
+    });
+
+    noResults.style.display = anyVisible ? "none" : "block";
+  }
+
+  searchInput.addEventListener("input", applyFilter);
+}
+
+// --- View switching / routing ----------------------------------------------
+function showToc(){
+  renderToc();
+  tocView.classList.remove("hidden");
+  topicView.classList.add("hidden");
+  window.scrollTo(0, 0);
+}
+
+function showTopic(idx){
+  renderTopic(idx);
+  tocView.classList.add("hidden");
+  topicView.classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function route(){
+  const hash = location.hash.replace(/^#/, "");
+  const m = hash.match(/^topic-(\d+)$/);
+  if (m && TOPICS[Number(m[1])]) {
+    showTopic(Number(m[1]));
+  } else {
+    showToc();
+  }
+}
+
+window.addEventListener("hashchange", route);
+route();
+
+// --- Lock screen handling -----------------------------------------------
+const QUIZ_ID = "cos-102";
+async function sha256Hex(text){
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+function initLock(){
+  const overlay = document.getElementById("lock-overlay");
+  const input = document.getElementById("lock-password");
+  const submit = document.getElementById("lock-submit");
+  const error = document.getElementById("lock-error");
+  const submitLabel = submit.textContent;
+
+  function showError(msg){
+    error.textContent = msg;
+    error.classList.add("show");
+    input.value = "";
+    input.focus();
+  }
+
+  function unlock(){
+    overlay.classList.add("unlocked");
+    try { sessionStorage.setItem("quizUnlocked:" + QUIZ_ID, "1"); } catch(e) {}
+  }
+
+  async function tryUnlockLocal(){
+    const hash = await sha256Hex(input.value.trim());
+    if (PASSWORD_HASHES.includes(hash)){
+      unlock();
+    } else {
+      showError("Not recognized — try again.");
+    }
+  }
+
+  const tryUnlock = tryUnlockLocal;
+
+  submit.addEventListener("click", tryUnlock);
+  input.addEventListener("keydown", e => { if (e.key === "Enter") tryUnlock(); });
+
+  let alreadyUnlocked = false;
+  try { alreadyUnlocked = sessionStorage.getItem("quizUnlocked:" + QUIZ_ID) === "1"; } catch(e) {}
+  if (alreadyUnlocked){
+    overlay.classList.add("unlocked");
+  } else {
+    input.focus();
+  }
+}
+
+if (PASSWORD_HASHES.length){
+  initLock();
+}
+
+// --- Floating comments (Supabase) ---------------------------------------
+const SB_URL = "https://szuhchmqcjwwomhqeldn.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6dWhjaG1xY2p3d29taHFlbGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3MDIyODYsImV4cCI6MjEwMTI3ODI4Nn0.ToshLahUmXRmFXo22MUWNIW2nJR7Nu0uP0iQCqpLc_E";
+const ADMIN_HASH = "2cf0803d25eba75262595d885a6906246bd6a7dd91f49888f8c0c4c7c48116d9";
+const SB_IMAGE_BUCKET = "quiz-comment-images";
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+
+if (SB_URL && SB_KEY){
+  const fab = document.getElementById("comment-fab");
+  const panel = document.getElementById("comment-panel");
+  const closeBtn = document.getElementById("comment-close");
+  const list = document.getElementById("comment-list");
+  const badge = document.getElementById("comment-badge");
+  const nameInput = document.getElementById("comment-name");
+  const msgInput = document.getElementById("comment-msg");
+  const submitBtn = document.getElementById("comment-submit");
+  const errEl = document.getElementById("comment-error");
+  const adminLink = document.getElementById("comment-admin-link");
+  const adminRow = document.getElementById("admin-login-row");
+  const adminInput = document.getElementById("admin-password-input");
+  const adminLoginBtn = document.getElementById("admin-login-btn");
+  const imageInput = document.getElementById("comment-image");
+  const imagePreview = document.getElementById("comment-image-preview");
+  const imagePreviewImg = document.getElementById("comment-image-preview-img");
+  const imageRemoveBtn = document.getElementById("comment-image-remove");
+  const lightbox = document.getElementById("comment-lightbox");
+  const lightboxImg = document.getElementById("comment-lightbox-img");
+  const seenKey = "commentsSeen:" + QUIZ_ID;
+  const voterKey = "commentsVoterId";
+  let selectedImageFile = null;
+
+  if (!ADMIN_HASH){ adminLink.style.display = "none"; }
+
+  let voterId = "";
+  try {
+    voterId = localStorage.getItem(voterKey) || "";
+    if (!voterId){
+      voterId = (crypto.randomUUID ? crypto.randomUUID() :
+        "v-" + Date.now() + "-" + Math.random().toString(16).slice(2));
+      localStorage.setItem(voterKey, voterId);
+    }
+  } catch(e){ voterId = "v-" + Date.now(); }
+
+  let adminOn = false;
+  try { adminOn = sessionStorage.getItem("commentsAdmin") === "1"; } catch(e) {}
+  if (adminOn) adminLink.classList.add("on");
+
+  const nameKey = "commentsName";
+  try {
+    const savedName = localStorage.getItem(nameKey);
+    if (savedName) nameInput.value = savedName;
+  } catch(e) {}
+  nameInput.addEventListener("input", () => {
+    try {
+      const v = nameInput.value.trim();
+      if (v) localStorage.setItem(nameKey, v);
+      else localStorage.removeItem(nameKey);
+    } catch(e) {}
+  });
+
+  let myLikes = new Set();
+  let myReports = new Set();
+  try {
+    (JSON.parse(localStorage.getItem("commentsLiked:" + QUIZ_ID) || "[]")).forEach(id => myLikes.add(id));
+    (JSON.parse(localStorage.getItem("commentsReported:" + QUIZ_ID) || "[]")).forEach(id => myReports.add(id));
+  } catch(e) {}
+  function saveLiked(){ try { localStorage.setItem("commentsLiked:" + QUIZ_ID, JSON.stringify([...myLikes])); } catch(e) {} }
+  function saveReported(){ try { localStorage.setItem("commentsReported:" + QUIZ_ID, JSON.stringify([...myReports])); } catch(e) {} }
+
+  function escHtml(s){
+    const d = document.createElement("div"); d.textContent = String(s); return d.innerHTML;
+  }
+  function timeAgo(iso){
+    const diffMs = Date.now() - new Date(iso).getTime();
+    const mins = Math.round(diffMs / 60000);
+    if (mins < 1) return "just now";
+    if (mins < 60) return mins + "m ago";
+    const hrs = Math.round(mins / 60);
+    if (hrs < 24) return hrs + "h ago";
+    return Math.round(hrs / 24) + "d ago";
+  }
+
+  async function sbFetch(path, opts){
+    return fetch(`${SB_URL}/rest/v1/${path}`, Object.assign({}, opts, {
+      headers: Object.assign({
+        "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY
+      }, (opts && opts.headers) || {})
+    }));
+  }
+
+  function clearSelectedImage(){
+    selectedImageFile = null;
+    imageInput.value = "";
+    imagePreview.classList.add("hidden");
+    imagePreviewImg.src = "";
+  }
+
+  imageInput.addEventListener("change", () => {
+    const file = imageInput.files[0];
+    if (!file) return;
+    errEl.textContent = "";
+    if (!file.type.startsWith("image/")){
+      errEl.textContent = "Please choose an image file.";
+      imageInput.value = "";
+      return;
+    }
+    if (file.size > MAX_IMAGE_BYTES){
+      errEl.textContent = "Image must be under 5MB.";
+      imageInput.value = "";
+      return;
+    }
+    selectedImageFile = file;
+    const reader = new FileReader();
+    reader.onload = () => {
+      imagePreviewImg.src = reader.result;
+      imagePreview.classList.remove("hidden");
+    };
+    reader.readAsDataURL(file);
+  });
+  imageRemoveBtn.addEventListener("click", clearSelectedImage);
+
+  lightbox.addEventListener("click", () => { lightbox.classList.remove("open"); lightboxImg.src = ""; });
+  list.addEventListener("click", (e) => {
+    const img = e.target.closest(".comment-image img");
+    if (img){ lightboxImg.src = img.src; lightbox.classList.add("open"); }
+  });
+
+  async function uploadImage(file){
+    const ext = ((file.name || "").split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
+    const path = `${QUIZ_ID}/${Date.now()}-${Math.random().toString(16).slice(2)}.${ext}`;
+    const res = await fetch(`${SB_URL}/storage/v1/object/${SB_IMAGE_BUCKET}/${path}`, {
+      method: "POST",
+      headers: {
+        "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY,
+        "Content-Type": file.type || "application/octet-stream"
+      },
+      body: file
+    });
+    if (!res.ok) throw new Error("upload failed");
+    return `${SB_URL}/storage/v1/object/public/${SB_IMAGE_BUCKET}/${path}`;
+  }
+
+  function commentRowHtml(c){
+    const liked = myLikes.has(c.id);
+    const reported = myReports.has(c.id);
+    const likeCount = (c.likes && c.likes[0] && c.likes[0].count) || 0;
+    const reportCount = (c.reports && c.reports[0] && c.reports[0].count) || 0;
+    const reportFlag = (adminOn && reportCount > 0)
+      ? `<span class="comment-report-flag">FLAGGED ×${reportCount}</span>` : "";
+    const isOwn = !!(c.author_id && voterId && c.author_id === voterId);
+    const canDelete = adminOn || isOwn;
+    const msgHtml = c.message ? `<div class="comment-msg">${escHtml(c.message)}</div>` : "";
+    const imageHtml = c.image_url
+      ? `<div class="comment-image"><img src="${escHtml(c.image_url)}" loading="lazy" alt="Photo attached to comment"></div>` : "";
+    return `
+      <span class="comment-name">${escHtml(c.name || "Anonymous")}</span><span class="comment-time">${escHtml(timeAgo(c.created_at))}</span>${reportFlag}
+      ${msgHtml}
+      ${imageHtml}
+      <div class="comment-actions">
+        <button class="comment-action like-btn ${liked ? "liked" : ""}" data-id="${c.id}">&#9829; ${likeCount || ""}</button>
+        <button class="comment-action reply-btn" data-id="${c.id}">Reply</button>
+        <button class="comment-action ${reported ? "reported" : "report-btn"}" data-id="${c.id}" ${reported ? "disabled" : ""}>${reported ? "Reported" : "Report"}</button>
+        ${canDelete ? `<button class="comment-action delete" data-id="${c.id}" data-delete="1">Delete</button>` : ""}
+      </div>
+      <div class="reply-form" id="reply-form-${c.id}">
+        <textarea rows="2" placeholder="Write a reply…" maxlength="600"></textarea>
+        <button data-parent="${c.id}" data-send-reply="1">Post reply</button>
+      </div>`;
+  }
+
+  function renderComments(rows){
+    if (!rows.length){
+      list.innerHTML = '<div class="comment-empty">No comments yet — be the first.</div>';
+      return;
+    }
+    const top = rows.filter(r => !r.parent_id);
+    const byParent = {};
+    rows.filter(r => r.parent_id).forEach(r => {
+      (byParent[r.parent_id] = byParent[r.parent_id] || []).push(r);
+    });
+    list.innerHTML = top.map(c => {
+      const replies = (byParent[c.id] || []).map(r => `
+        <div class="comment-item reply" data-cid="${r.id}">${commentRowHtml(r)}</div>`).join("");
+      return `<div class="comment-item" data-cid="${c.id}">${commentRowHtml(c)}</div>${replies}`;
+    }).join("");
+  }
+
+  async function fetchComments(){
+    try {
+      const res = await sbFetch(
+        `quiz_comments?quiz_id=eq.${encodeURIComponent(QUIZ_ID)}` +
+        `&select=*,likes:quiz_comment_likes(count),reports:quiz_comment_reports(count)` +
+        `&order=created_at.asc&limit=500`
+      );
+      if (!res.ok) throw new Error("fetch failed");
+      const rows = await res.json();
+      renderComments(rows);
+      const topCount = rows.filter(r => !r.parent_id).length + rows.filter(r => r.parent_id).length;
+      let seen = 0;
+      try { seen = parseInt(localStorage.getItem(seenKey) || "0", 10); } catch(e) {}
+      const unseen = topCount - seen;
+      if (unseen > 0){
+        badge.textContent = unseen > 99 ? "99+" : String(unseen);
+        badge.classList.add("show");
+      } else {
+        badge.classList.remove("show");
+      }
+      return topCount;
+    } catch(e){
+      list.innerHTML = '<div class="comment-empty">Couldn\'t load comments right now.</div>';
+      return null;
+    }
+  }
+
+  function markSeen(){
+    fetchComments().then(count => {
+      if (count !== null){
+        try { localStorage.setItem(seenKey, String(count)); } catch(e) {}
+      }
+      badge.classList.remove("show");
+    });
+  }
+
+  function openPanel(){ panel.classList.add("open"); document.body.style.overflow="hidden"; markSeen(); }
+  function closePanel(){ panel.classList.remove("open"); document.body.style.overflow=""; }
+
+  fab.addEventListener("click", () => {
+    panel.classList.contains("open") ? closePanel() : openPanel();
+  });
+  closeBtn.addEventListener("click", closePanel);
+
+  adminLink.addEventListener("click", () => {
+    if (adminOn){
+      adminOn = false;
+      try { sessionStorage.removeItem("commentsAdmin"); } catch(e) {}
+      adminLink.classList.remove("on");
+      fetchComments();
+      return;
+    }
+    adminRow.classList.toggle("open");
+    adminInput.focus();
+  });
+  async function tryAdminLogin(){
+    const val = adminInput.value.trim();
+    if (!val) return;
+    const enc = new TextEncoder().encode(val);
+    const buf = await crypto.subtle.digest("SHA-256", enc);
+    const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+    if (hex === ADMIN_HASH){
+      adminOn = true;
+      try { sessionStorage.setItem("commentsAdmin", "1"); } catch(e) {}
+      adminLink.classList.add("on");
+      adminRow.classList.remove("open");
+      adminInput.value = "";
+      fetchComments();
+    } else {
+      adminInput.value = "";
+      adminInput.placeholder = "Wrong password";
+    }
+  }
+  adminLoginBtn.addEventListener("click", tryAdminLogin);
+  adminInput.addEventListener("keydown", e => { if (e.key === "Enter") tryAdminLogin(); });
+
+  async function postComment(message, parentId, imageUrl){
+    const res = await sbFetch("quiz_comments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Prefer": "return=minimal" },
+      body: JSON.stringify({
+        quiz_id: QUIZ_ID,
+        parent_id: parentId || null,
+        name: nameInput.value.trim().slice(0, 60) || null,
+        message: message.slice(0, 600),
+        image_url: imageUrl || null,
+        author_id: voterId
+      })
+    });
+    if (!res.ok) throw new Error("post failed");
+  }
+
+  const SEND_ICON = submitBtn.innerHTML;
+
+  msgInput.addEventListener("input", () => {
+    msgInput.style.height = "auto";
+    msgInput.style.height = Math.min(msgInput.scrollHeight, 100) + "px";
+  });
+
+  submitBtn.addEventListener("click", async () => {
+    const message = msgInput.value.trim();
+    errEl.textContent = "";
+    if (!message && !selectedImageFile){ errEl.textContent = "Write something or add a photo first."; return; }
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = "&#8987;";
+    try {
+      let imageUrl = null;
+      if (selectedImageFile){
+        imageUrl = await uploadImage(selectedImageFile);
+      }
+      await postComment(message, null, imageUrl);
+      msgInput.value = "";
+      msgInput.style.height = "auto";
+      clearSelectedImage();
+      await markSeen();
+    } catch(e){
+      errEl.textContent = selectedImageFile
+        ? "Couldn't upload photo — check your connection and try again."
+        : "Couldn't post — check your connection and try again.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = SEND_ICON;
+    }
+  });
+
+  // Event delegation for like / reply / report / delete buttons, since
+  // comment rows are re-rendered on every refresh.
+  list.addEventListener("click", async (e) => {
+    const likeBtn = e.target.closest(".like-btn");
+    const replyBtn = e.target.closest(".reply-btn");
+    const reportBtn = e.target.closest(".report-btn");
+    const delBtn = e.target.closest("[data-delete]");
+    const sendReplyBtn = e.target.closest("[data-send-reply]");
+
+    if (likeBtn){
+      const id = likeBtn.dataset.id;
+      likeBtn.disabled = true;
+      try {
+        if (myLikes.has(id)){
+          await sbFetch(`quiz_comment_likes?comment_id=eq.${id}&voter_id=eq.${encodeURIComponent(voterId)}`,
+            { method: "DELETE" });
+          myLikes.delete(id);
+        } else {
+          await sbFetch("quiz_comment_likes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Prefer": "return=minimal" },
+            body: JSON.stringify({ comment_id: Number(id), voter_id: voterId })
+          });
+          myLikes.add(id);
+        }
+        saveLiked();
+        fetchComments();
+      } catch(err){ likeBtn.disabled = false; }
+      return;
+    }
+
+    if (replyBtn){
+      const form = document.getElementById("reply-form-" + replyBtn.dataset.id);
+      if (form) { form.classList.toggle("open"); form.querySelector("textarea").focus(); }
+      return;
+    }
+
+    if (reportBtn){
+      const id = reportBtn.dataset.id;
+      reportBtn.disabled = true;
+      try {
+        await sbFetch("quiz_comment_reports", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Prefer": "return=minimal" },
+          body: JSON.stringify({ comment_id: Number(id), reporter_id: voterId })
+        });
+        myReports.add(id);
+        saveReported();
+        reportBtn.textContent = "Reported";
+        reportBtn.classList.remove("report-btn");
+        reportBtn.classList.add("reported");
+      } catch(err){ reportBtn.disabled = false; }
+      return;
+    }
+
+    if (delBtn){
+      if (!confirm("Delete this comment (and any replies to it)?")) return;
+      const id = delBtn.dataset.id;
+      try {
+        await sbFetch(`quiz_comments?id=eq.${id}`, { method: "DELETE" });
+        fetchComments();
+      } catch(err){}
+      return;
+    }
+
+    if (sendReplyBtn){
+      const parentId = sendReplyBtn.dataset.parent;
+      const form = sendReplyBtn.closest(".reply-form");
+      const ta = form.querySelector("textarea");
+      const text = ta.value.trim();
+      if (!text) return;
+      sendReplyBtn.disabled = true;
+      try {
+        await postComment(text, Number(parentId));
+        ta.value = "";
+        form.classList.remove("open");
+        await markSeen();
+      } catch(err){} finally {
+        sendReplyBtn.disabled = false;
+      }
+      return;
+    }
+  });
+
+  fetchComments();
+  setInterval(fetchComments, 30000);
+}
+</script>
+</body>
+</html>
